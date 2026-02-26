@@ -17,22 +17,54 @@ def admin_index():
 @admin_commande.route('/admin/commande/show', methods=['get','post'])
 def admin_commande_show():
     mycursor = get_db().cursor()
-    admin_id = session['id_user']
-    sql = '''      '''
 
-    commandes=[]
+    # Récupérer toutes les commandes avec infos client
+    sql = '''
+        SELECT
+            c.id_commande,
+            c.date_achat,
+            c.etat_id,
+            e.libelle,
+            u.login,
+            SUM(lc.quantite) as nbr_articles,
+            SUM(lc.quantite * lc.prix) as prix_total
+        FROM commande c
+        JOIN utilisateur u ON c.utilisateur_id = u.id_utilisateur
+        JOIN etat e ON c.etat_id = e.id_etat
+        LEFT JOIN ligne_commande lc ON c.id_commande = lc.commande_id
+        GROUP BY c.id_commande, c.date_achat, c.etat_id, e.libelle, u.login
+        ORDER BY c.etat_id ASC, c.date_achat DESC
+    '''
+    mycursor.execute(sql)
+    commandes = mycursor.fetchall()
 
-    linges_commande = None
+    articles_commande = None
     commande_adresses = None
     id_commande = request.args.get('id_commande', None)
-    print(id_commande)
-    if id_commande != None:
-        sql = '''    '''
-        commande_adresses = []
-    return render_template('admin/commandes/show.html'
-                           , commandes=commandes
-                           , linges_commande=linges_commande
-                           , commande_adresses=commande_adresses
+
+    if id_commande:
+        # Détails de la commande (avec infos pour le template)
+        sql_details = '''
+            SELECT
+                lc.linge_id,
+                l.nom_linge as nom,
+                lc.quantite,
+                lc.prix,
+                (lc.quantite * lc.prix) as prix_ligne,
+                c.etat_id,
+                c.id_commande as id
+            FROM ligne_commande lc
+            JOIN linge l ON lc.linge_id = l.id_linge
+            JOIN commande c ON lc.commande_id = c.id_commande
+            WHERE lc.commande_id = %s
+        '''
+        mycursor.execute(sql_details, (id_commande,))
+        articles_commande = mycursor.fetchall()
+
+    return render_template('admin/commandes/show.html',
+                           commandes=commandes,
+                           articles_commande=articles_commande,
+                           commande_adresses=commande_adresses
                            )
 
 
@@ -40,9 +72,21 @@ def admin_commande_show():
 def admin_commande_valider():
     mycursor = get_db().cursor()
     commande_id = request.form.get('id_commande', None)
-    if commande_id != None:
-        print(commande_id)
-        sql = '''           '''
-        mycursor.execute(sql, commande_id)
+
+    if commande_id:
+        # Changer l'état de la commande (1: En attente -> 2: Expédié)
+        # ou passer à l'état suivant selon votre logique métier
+        sql = '''
+            UPDATE commande
+            SET etat_id = CASE
+                WHEN etat_id = 1 THEN 2  -- En attente -> Expédié
+                WHEN etat_id = 2 THEN 3  -- Expédié -> Validé
+                ELSE etat_id
+            END
+            WHERE id_commande = %s
+        '''
+        mycursor.execute(sql, (commande_id,))
         get_db().commit()
+        flash('État de la commande mis à jour', 'alert-success')
+
     return redirect('/admin/commande/show')

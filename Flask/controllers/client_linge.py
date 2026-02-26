@@ -14,23 +14,50 @@ def client_linge_show():
     # On récupère l'id de l'utilisateur pour le panier (même si vide pour l'instant)
     id_client = session.get('id_user')
 
-    # 1. Récupération du jeu de test : les linges
-    sql_linge = '''SELECT     
-    id_linge, 
-    nom_linge  AS nom,
-    prix_linge  AS prix,
-    dimension ,
-    matiere ,
-    description ,
-    fournisseur ,
-    marque ,
-    image ,
-    stock ,
-    coloris_id ,
-    type_linge_id 
-     FROM linge 
-     ORDER BY nom ASC;'''
-    mycursor.execute(sql_linge)
+    # 1. Récupération du jeu de test : les linges (avec filtre si présent en session)
+    filter_types = session.get('filter_types', [])
+
+    if filter_types:
+        # Filtre actif : récupérer seulement les linges des types sélectionnés
+        placeholders = ','.join(['%s'] * len(filter_types))
+        sql_linge = f'''
+            SELECT
+                id_linge,
+                nom_linge AS nom,
+                prix_linge AS prix,
+                dimension,
+                matiere,
+                description,
+                fournisseur,
+                marque,
+                image,
+                stock,
+                coloris_id,
+                type_linge_id
+            FROM linge
+            WHERE type_linge_id IN ({placeholders})
+            ORDER BY nom ASC
+        '''
+        mycursor.execute(sql_linge, tuple(filter_types))
+    else:
+        # Pas de filtre : récupérer tous les linges
+        sql_linge = '''SELECT
+            id_linge,
+            nom_linge AS nom,
+            prix_linge AS prix,
+            dimension,
+            matiere,
+            description,
+            fournisseur,
+            marque,
+            image,
+            stock,
+            coloris_id,
+            type_linge_id
+         FROM linge
+         ORDER BY nom ASC'''
+        mycursor.execute(sql_linge)
+
     linges = mycursor.fetchall()
 
     # 2. Récupération des types de linge pour le filtre

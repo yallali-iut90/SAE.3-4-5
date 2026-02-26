@@ -17,7 +17,22 @@ admin_linge = Blueprint('admin_linge', __name__,
 @admin_linge.route('/admin/linge/show')
 def show_linge():
     mycursor = get_db().cursor()
-    sql = '''  requête admin_linge_1
+    # Récupérer tous les linges avec leur type et coloris
+    sql = '''
+        SELECT
+            l.id_linge,
+            l.nom_linge,
+            l.prix_linge,
+            l.dimension,
+            l.matiere,
+            l.stock,
+            l.image,
+            tl.nom_type_linge as type,
+            c.nom_coloris as coloris
+        FROM linge l
+        JOIN type_linge tl ON l.type_linge_id = tl.id_type_linge
+        JOIN coloris c ON l.coloris_id = c.id_coloris
+        ORDER BY l.nom_linge ASC
     '''
     mycursor.execute(sql)
     linges = mycursor.fetchall()
@@ -176,6 +191,25 @@ def admin_avis(id):
                            , linge=linge
                            , commentaires=commentaires
                            )
+
+
+@admin_linge.route('/admin/linge/stock/edit', methods=['POST'])
+def edit_stock_linge():
+    mycursor = get_db().cursor()
+    id_linge = request.form.get('id_linge')
+    nouveau_stock = request.form.get('stock')
+
+    if id_linge and nouveau_stock is not None:
+        nouveau_stock = int(nouveau_stock)
+        if nouveau_stock < 0:
+            flash('Le stock ne peut pas être négatif', 'alert-warning')
+            return redirect('/admin/linge/show')
+
+        sql = "UPDATE linge SET stock = %s WHERE id_linge = %s"
+        mycursor.execute(sql, (nouveau_stock, id_linge))
+        get_db().commit()
+        flash('Stock mis à jour', 'alert-success')
+    return redirect('/admin/linge/show')
 
 
 @admin_linge.route('/admin/comment/delete', methods=['POST'])

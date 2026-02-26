@@ -14,31 +14,54 @@ def client_panier_add():
     mycursor = get_db().cursor()
     id_client = session['id_user']
     id_linge = request.form.get('id_linge')
-    quantite = request.form.get('quantite')
-    # ---------
-    #id_declinaison_linge=request.form.get('id_declinaison_linge',None)
-    id_declinaison_linge = 1
+    quantite = int(request.form.get('quantite', 1))
 
-# ajout dans le panier d'une déclinaison d'un linge (si 1 declinaison : immédiat sinon => vu pour faire un choix
-    # sql = '''    '''
-    # mycursor.execute(sql, (id_linge))
-    # declinaisons = mycursor.fetchall()
-    # if len(declinaisons) == 1:
-    #     id_declinaison_linge = declinaisons[0]['id_declinaison_linge']
-    # elif len(declinaisons) == 0:
-    #     abort("pb nb de declinaison")
-    # else:
-    #     sql = '''   '''
-    #     mycursor.execute(sql, (id_linge))
-    #     linge = mycursor.fetchone()
-    #     return render_template('client/boutique/declinaison_linge.html'
-    #                                , declinaisons=declinaisons
-    #                                , quantite=quantite
-    #                                , linge=linge)
+    # Vérifier le stock disponible
+    sql_stock = "SELECT stock FROM linge WHERE id_linge = %s"
+    mycursor.execute(sql_stock, (id_linge,))
+    stock_result = mycursor.fetchone()
 
-# ajout dans le panier d'un linge
+    if not stock_result or stock_result['stock'] < quantite:
+        flash('Stock insuffisant pour cet article', 'alert-warning')
+        return redirect('/client/linge/show')
 
+    # Vérifier si l'article est déjà dans le panier
+    sql_check = """
+        SELECT quantite FROM ligne_panier
+        WHERE utilisateur_id = %s AND linge_id = %s
+    """
+    mycursor.execute(sql_check, (id_client, id_linge))
+    panier_existant = mycursor.fetchone()
 
+    if panier_existant:
+        # Article déjà dans le panier : mettre à jour la quantité
+        nouvelle_quantite = panier_existant['quantite'] + quantite
+
+        # Vérifier que le nouveau total ne dépasse pas le stock
+        if nouvelle_quantite > stock_result['stock']:
+            flash('Quantité totale demandée supérieure au stock disponible', 'alert-warning')
+            return redirect('/client/linge/show')
+
+        sql_update = """
+            UPDATE ligne_panier
+            SET quantite = %s, date_ajout = NOW()
+            WHERE utilisateur_id = %s AND linge_id = %s
+        """
+        mycursor.execute(sql_update, (nouvelle_quantite, id_client, id_linge))
+    else:
+        # Nouvel article dans le panier
+        sql_insert = """
+            INSERT INTO ligne_panier (utilisateur_id, linge_id, quantite, date_ajout)
+            VALUES (%s, %s, %s, NOW())
+        """
+        mycursor.execute(sql_insert, (id_client, id_linge, quantite))
+
+    # Décrémenter le stock
+    sql_decrement = "UPDATE linge SET stock = stock - %s WHERE id_linge = %s"
+    mycursor.execute(sql_decrement, (quantite, id_linge))
+
+    get_db().commit()
+    flash('Article ajouté au panier', 'alert-success')
     return redirect('/client/linge/show')
 
 @client_panier.route('/client/panier/delete', methods=['POST'])

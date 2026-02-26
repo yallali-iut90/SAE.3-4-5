@@ -16,6 +16,11 @@ def client_panier_add():
     id_linge = request.form.get('id_linge')
     quantite = int(request.form.get('quantite', 1))
 
+    # Vérifier que la quantité est supérieure à zéro
+    if quantite <= 0:
+        flash('La quantité doit être supérieure à zéro', 'alert-warning')
+        return redirect('/client/linge/show')
+
     # Vérifier le stock disponible
     sql_stock = "SELECT stock FROM linge WHERE id_linge = %s"
     mycursor.execute(sql_stock, (id_linge,))

@@ -79,8 +79,8 @@ def admin_commande_valider():
         sql = '''
             UPDATE commande
             SET etat_id = CASE
-                WHEN etat_id = 1 THEN 2  -- En attente -> Expédié
-                WHEN etat_id = 2 THEN 3  -- Expédié -> Validé
+                WHEN etat_id = 1 THEN 2 
+                WHEN etat_id = 2 THEN 3  
                 ELSE etat_id
             END
             WHERE id_commande = %s

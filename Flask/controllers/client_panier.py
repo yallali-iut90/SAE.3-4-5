@@ -22,10 +22,10 @@ def client_panier_add():
     stock_result = mycursor.fetchone()
 
     if not stock_result or stock_result['stock'] < quantite:
-        flash('Stock insuffisant pour cet article', 'alert-warning')
+        flash('Stock insuffisant pour cet linge', 'alert-warning')
         return redirect('/client/linge/show')
 
-    # Vérifier si l'article est déjà dans le panier
+    # Vérifier si l'linge est déjà dans le panier
     sql_check = """
         SELECT quantite FROM ligne_panier
         WHERE utilisateur_id = %s AND linge_id = %s
@@ -49,7 +49,7 @@ def client_panier_add():
         """
         mycursor.execute(sql_update, (nouvelle_quantite, id_client, id_linge))
     else:
-        # Nouvel article dans le panier
+        # Nouvel linge dans le panier
         sql_insert = """
             INSERT INTO ligne_panier (utilisateur_id, linge_id, quantite, date_ajout)
             VALUES (%s, %s, %s, NOW())
@@ -70,7 +70,7 @@ def client_panier_delete():
     id_client = session['id_user']
     id_linge = request.form.get('id_linge', '')
 
-    # Vérifier si l'article est dans le panier
+    # Vérifier si l'linge est dans le panier
     sql_check = """
         SELECT quantite FROM ligne_panier
         WHERE utilisateur_id = %s AND linge_id = %s
@@ -125,7 +125,7 @@ def client_panier_vider():
     mycursor.execute(sql_select, (client_id,))
     items_panier = mycursor.fetchall()
 
-    # Pour chaque article, réincréménter le stock
+    # Pour chaque linge, réincréménter le stock
     for item in items_panier:
         sql_increment = "UPDATE linge SET stock = stock + %s WHERE id_linge = %s"
         mycursor.execute(sql_increment, (item['quantite'], item['linge_id']))
@@ -178,12 +178,30 @@ def client_panier_delete_line():
 @client_panier.route('/client/panier/filtre', methods=['POST'])
 def client_panier_filtre():
     filter_types = request.form.getlist('filter_types')
+    filter_word = request.form.get('filter_word', '').strip()
+    filter_prix_min = request.form.get('filter_prix_min', '').strip()
+    filter_prix_max = request.form.get('filter_prix_max', '').strip()
 
-    # Stockage du filtre en session
+    # Stockage des filtres en session
     if filter_types:
         session['filter_types'] = filter_types
     else:
         session.pop('filter_types', None)
+
+    if filter_word:
+        session['filter_word'] = filter_word
+    else:
+        session.pop('filter_word', None)
+
+    if filter_prix_min:
+        session['filter_prix_min'] = filter_prix_min
+    else:
+        session.pop('filter_prix_min', None)
+
+    if filter_prix_max:
+        session['filter_prix_max'] = filter_prix_max
+    else:
+        session.pop('filter_prix_max', None)
 
     return redirect('/client/linge/show')
 
@@ -192,5 +210,8 @@ def client_panier_filtre():
 def client_panier_filtre_suppr():
     # suppression des variables de filtre en session
     session.pop('filter_types', None)
+    session.pop('filter_word', None)
+    session.pop('filter_prix_min', None)
+    session.pop('filter_prix_max', None)
     flash('Filtre supprimé', 'alert-success')
     return redirect('/client/linge/show')

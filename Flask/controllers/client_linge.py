@@ -14,34 +14,48 @@ def client_linge_show():
     # On récupère l'id de l'utilisateur pour le panier (même si vide pour l'instant)
     id_client = session.get('id_user')
 
-    # 1. Récupération du jeu de test : les linges (avec filtre si présent en session)
+    # 1. Récupération des filtres en session
     filter_types = session.get('filter_types', [])
+    filter_word = session.get('filter_word', '')
+    filter_prix_min = session.get('filter_prix_min', '')
+    filter_prix_max = session.get('filter_prix_max', '')
 
+    # Construction de la requête SQL avec filtres dynamiques
+    where_conditions = []
+    params = []
+
+    # Filtre par type
     if filter_types:
-        # Filtre actif : récupérer seulement les linges des types sélectionnés
         placeholders = ','.join(['%s'] * len(filter_types))
-        sql_linge = f'''
-            SELECT
-                id_linge,
-                nom_linge AS nom,
-                prix_linge AS prix,
-                dimension,
-                matiere,
-                description,
-                fournisseur,
-                marque,
-                image,
-                stock,
-                coloris_id,
-                type_linge_id
-            FROM linge
-            WHERE type_linge_id IN ({placeholders})
-            ORDER BY nom ASC
-        '''
-        mycursor.execute(sql_linge, tuple(filter_types))
-    else:
-        # Pas de filtre : récupérer tous les linges
-        sql_linge = '''SELECT
+        where_conditions.append(f'type_linge_id IN ({placeholders})')
+        params.extend(filter_types)
+
+    # Filtre par nom (recherche)
+    if filter_word:
+        where_conditions.append('nom_linge LIKE %s')
+        params.append(f'%{filter_word}%')
+
+    # Filtre par prix min
+    if filter_prix_min:
+        try:
+            prix_min = float(filter_prix_min)
+            where_conditions.append('prix_linge >= %s')
+            params.append(prix_min)
+        except ValueError:
+            pass
+
+    # Filtre par prix max
+    if filter_prix_max:
+        try:
+            prix_max = float(filter_prix_max)
+            where_conditions.append('prix_linge <= %s')
+            params.append(prix_max)
+        except ValueError:
+            pass
+
+    # Construction de la requête finale
+    sql_base = '''
+        SELECT
             id_linge,
             nom_linge AS nom,
             prix_linge AS prix,
@@ -54,8 +68,14 @@ def client_linge_show():
             stock,
             coloris_id,
             type_linge_id
-         FROM linge
-         ORDER BY nom ASC'''
+        FROM linge
+    '''
+
+    if where_conditions:
+        sql_linge = sql_base + ' WHERE ' + ' AND '.join(where_conditions) + ' ORDER BY nom ASC'
+        mycursor.execute(sql_linge, tuple(params))
+    else:
+        sql_linge = sql_base + ' ORDER BY nom ASC'
         mycursor.execute(sql_linge)
 
     linges = mycursor.fetchall()

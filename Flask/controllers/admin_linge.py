@@ -18,10 +18,10 @@ admin_linge = Blueprint('admin_linge', __name__,
 def show_linge():
     mycursor = get_db().cursor()
     # Récupérer tous les linges avec leur type et coloris
-    # Adapter les noms pour correspondre au template show_article.html
+    # Adapter les noms pour correspondre au template show_linge.html
     sql = '''
         SELECT
-            l.id_linge as id_article,
+            l.id_linge as id_linge,
             l.nom_linge as nom,
             l.prix_linge as prix,
             l.stock,
@@ -33,8 +33,8 @@ def show_linge():
         ORDER BY l.nom_linge ASC
     '''
     mycursor.execute(sql)
-    articles = mycursor.fetchall()
-    return render_template('admin/article/show_article.html', articles=articles)
+    linges = mycursor.fetchall()
+    return render_template('admin/linge/show_linge.html', linges=linges)
 
 
 @admin_linge.route('/admin/linge/add', methods=['GET'])

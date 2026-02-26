@@ -26,7 +26,7 @@ def admin_commande_show():
             c.etat_id,
             e.libelle,
             u.login,
-            SUM(lc.quantite) as nbr_articles,
+            SUM(lc.quantite) as nbr_linges,
             SUM(lc.quantite * lc.prix) as prix_total
         FROM commande c
         JOIN utilisateur u ON c.utilisateur_id = u.id_utilisateur
@@ -38,7 +38,7 @@ def admin_commande_show():
     mycursor.execute(sql)
     commandes = mycursor.fetchall()
 
-    articles_commande = None
+    linges_commande = None
     commande_adresses = None
     id_commande = request.args.get('id_commande', None)
 
@@ -59,11 +59,11 @@ def admin_commande_show():
             WHERE lc.commande_id = %s
         '''
         mycursor.execute(sql_details, (id_commande,))
-        articles_commande = mycursor.fetchall()
+        linges_commande = mycursor.fetchall()
 
     return render_template('admin/commandes/show.html',
                            commandes=commandes,
-                           articles_commande=articles_commande,
+                           linges_commande=linges_commande,
                            commande_adresses=commande_adresses
                            )
 

@@ -67,7 +67,7 @@ def client_commande_add():
     items_ligne_panier = mycursor.fetchall()
 
     if not items_ligne_panier or len(items_ligne_panier) < 1:
-        flash('Pas d\'articles dans le panier', 'alert-warning')
+        flash('Pas d\'linges dans le panier', 'alert-warning')
         return redirect('/client/linge/show')
 
     # Création de la commande (état 1 = "En attente")

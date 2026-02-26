@@ -114,28 +114,36 @@ def delete_linge():
 def edit_linge():
     id_linge=request.args.get('id_linge')
     mycursor = get_db().cursor()
+
+    # Récupérer le linge à modifier
     sql = '''
-    requête admin_linge_6    
+        SELECT
+            l.id_linge,
+            l.nom_linge as nom,
+            l.prix_linge as prix,
+            l.stock,
+            l.image,
+            l.description,
+            l.type_linge_id
+        FROM linge l
+        WHERE l.id_linge = %s
     '''
-    mycursor.execute(sql, id_linge)
+    mycursor.execute(sql, (id_linge,))
     linge = mycursor.fetchone()
     print(linge)
+
+    # Récupérer tous les types de linge
     sql = '''
-    requête admin_linge_7
+        SELECT id_type_linge, nom_type_linge as libelle
+        FROM type_linge
+        ORDER BY nom_type_linge ASC
     '''
     mycursor.execute(sql)
     types_linge = mycursor.fetchall()
 
-    # sql = '''
-    # requête admin_linge_6
-    # '''
-    # mycursor.execute(sql, id_linge)
-    # declinaisons_linge = mycursor.fetchall()
-
     return render_template('admin/linge/edit_linge.html'
                            ,linge=linge
                            ,types_linge=types_linge
-                         #  ,declinaisons_linge=declinaisons_linge
                            )
 
 
@@ -147,30 +155,41 @@ def valid_edit_linge():
     image = request.files.get('image', '')
     type_linge_id = request.form.get('type_linge_id', '')
     prix = request.form.get('prix', '')
+    stock = request.form.get('stock', '')
     description = request.form.get('description')
-    sql = '''
-       requête admin_linge_8
-       '''
-    mycursor.execute(sql, id_linge)
-    image_nom = mycursor.fetchone()
-    image_nom = image_nom['image']
+
+    # Récupérer l'image actuelle
+    sql = 'SELECT image FROM linge WHERE id_linge = %s'
+    mycursor.execute(sql, (id_linge,))
+    result = mycursor.fetchone()
+    image_nom = result['image'] if result else None
+
+    # Gestion de la nouvelle image
     if image:
-        if image_nom != "" and image_nom is not None and os.path.exists(
+        if image_nom and image_nom != "" and os.path.exists(
                 os.path.join(os.getcwd() + "/static/images/", image_nom)):
             os.remove(os.path.join(os.getcwd() + "/static/images/", image_nom))
-        # filename = secure_filename(image.filename)
-        if image:
-            filename = 'img_upload_' + str(int(2147483647 * random())) + '.png'
-            image.save(os.path.join('static/images/', filename))
-            image_nom = filename
+        filename = 'img_upload_' + str(int(2147483647 * random())) + '.png'
+        image.save(os.path.join('static/images/', filename))
+        image_nom = filename
 
-    sql = '''  requête admin_linge_9 '''
-    mycursor.execute(sql, (nom, image_nom, prix, type_linge_id, description, id_linge))
+    # Mise à jour du linge (avec stock)
+    sql = '''
+        UPDATE linge
+        SET nom_linge = %s,
+            prix_linge = %s,
+            stock = %s,
+            image = %s,
+            type_linge_id = %s,
+            description = %s
+        WHERE id_linge = %s
+    '''
+    mycursor.execute(sql, (nom, prix, stock, image_nom, type_linge_id, description, id_linge))
 
     get_db().commit()
     if image_nom is None:
         image_nom = ''
-    message = u'linge modifié , nom:' + nom + '- type_linge :' + type_linge_id + ' - prix:' + prix  + ' - image:' + image_nom + ' - description: ' + description
+    message = u'linge modifié , nom:' + nom + ' - type_linge:' + type_linge_id + ' - prix:' + prix + ' - stock:' + stock + ' - image:' + image_nom
     flash(message, 'alert-success')
     return redirect('/admin/linge/show')
 

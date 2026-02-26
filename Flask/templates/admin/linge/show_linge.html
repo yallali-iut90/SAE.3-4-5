@@ -41,12 +41,6 @@ linges (tableau de dictionnaires)
                         {% else %}
                             <strong class="text-danger">Rupture de stock (0)</strong>
                         {% endif %}
-                        <!-- Formulaire modification stock -->
-                        <form action="/admin/linge/stock/edit" method="post" style="margin-top: 5px;">
-                            <input type="hidden" name="id_linge" value="{{ ligne.id_linge }}">
-                            <input type="number" name="stock" value="{{ ligne.stock }}" min="0" style="width: 60px;">
-                            <button type="submit" class="btn btn-sm btn-outline-primary">Modifier</button>
-                        </form>
                      {% else %}
                              <strong class="text-muted">ND</strong>
                      {% endif %}

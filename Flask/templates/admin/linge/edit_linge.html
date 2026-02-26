@@ -43,6 +43,9 @@ types_linge : tableau de dictionnaires
                             {% endfor %}
                         </select>
                     </label>
+                    <label for="stock">Stock :
+                        <input name="stock" type="number" min="0" value="{{ linge.stock }}" class="form-control">
+                    </label>
                     <label for="description">Description :
                         <input name="description" type="text" value="{{ linge.description }}" class="form-control">
                     </label>

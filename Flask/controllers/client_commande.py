@@ -113,8 +113,8 @@ def client_commande_show():
             c.id_commande,
             c.date_achat,
             c.etat_id,
-            e.libelle as etat_libelle,
-            SUM(lc.quantite) as nb_articles,
+            e.libelle,
+            SUM(lc.quantite) as nbr_linge,
             SUM(lc.quantite * lc.prix) as prix_total
         FROM commande c
         JOIN etat e ON c.etat_id = e.id_etat
@@ -126,7 +126,8 @@ def client_commande_show():
     mycursor.execute(sql_commandes, (id_client,))
     commandes = mycursor.fetchall()
 
-    linges_commande = None
+    linge_commande = None
+    commande_adresses = None
     id_commande = request.args.get('id_commande', None)
 
     if id_commande:
@@ -134,19 +135,20 @@ def client_commande_show():
         sql_details = '''
             SELECT
                 lc.linge_id,
-                l.nom_linge,
+                l.nom_linge as nom,
                 lc.quantite,
                 lc.prix,
-                (lc.quantite * lc.prix) as sous_total
+                (lc.quantite * lc.prix) as prix_ligne
             FROM ligne_commande lc
             JOIN linge l ON lc.linge_id = l.id_linge
             WHERE lc.commande_id = %s
         '''
         mycursor.execute(sql_details, (id_commande,))
-        linges_commande = mycursor.fetchall()
+        linge_commande = mycursor.fetchall()
 
     return render_template('client/commandes/show.html',
                            commandes=commandes,
-                           linges_commande=linges_commande
+                           linge_commande=linge_commande,
+                           commande_adresses=commande_adresses
                            )
 

@@ -33,29 +33,43 @@ def client_linge_show():
     mycursor.execute(sql_linge)
     linges = mycursor.fetchall()
 
-    # 2. Récupération des types de linge pour le futur filtre
+    # 2. Récupération des types de linge pour le filtre
     sql_types = "SELECT * FROM type_linge ORDER BY nom_type_linge ASC;"
     mycursor.execute(sql_types)
     types_linge = mycursor.fetchall()
 
-    # Initialisation des variables pour éviter les erreurs Jinja2 dans le template
-    linge_panier = []
-    prix_total = None
+    # 3. Récupération du panier du client connecté
+    sql_panier = '''
+        SELECT
+            lp.linge_id as id_linge,
+            l.nom_linge as nom,
+            lp.quantite,
+            l.prix_linge as prix,
+            l.stock
+        FROM ligne_panier lp
+        JOIN linge l ON lp.linge_id = l.id_linge
+        WHERE lp.utilisateur_id = %s
+        ORDER BY lp.date_ajout DESC
+    '''
+    mycursor.execute(sql_panier, (id_client,))
+    linge_panier = mycursor.fetchall()
+
+    # 4. Calcul du prix total du panier
+    prix_total = 0
+    if len(linge_panier) >= 1:
+        sql_prix_total = '''
+            SELECT SUM(lp.quantite * l.prix_linge) as total
+            FROM ligne_panier lp
+            JOIN linge l ON lp.linge_id = l.id_linge
+            WHERE lp.utilisateur_id = %s
+        '''
+        mycursor.execute(sql_prix_total, (id_client,))
+        result = mycursor.fetchone()
+        if result and result['total'] is not None:
+            prix_total = result['total']
 
     return render_template('client/boutique/panier_linge.html',
                            linges=linges,
                            items_filtre=types_linge,
                            linge_panier=linge_panier,
                            prix_total=prix_total)
-
-    if len(linge_panier) >= 1:
-        sql = ''' calcul du prix total du panier '''
-        prix_total = None
-    else:
-        prix_total = None
-    return render_template('client/boutique/panier_linge.html'
-                           , linge=linge
-                           , linge_panier=linge_panier
-                           #, prix_total=prix_total
-                           , items_filtre=types_linge
-                           )

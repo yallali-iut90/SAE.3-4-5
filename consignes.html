@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)https://cours-info.iut-bm.univ-fcomte.fr/upload/perso/77/rs_S2_BDD/sae/SAE_4_presentation_v25_v2.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>BDD</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="./consignes_files/markdown-pandoc-amV4.css">
+  <link rel="icon" href="https://cours-info.iut-bm.univ-fcomte.fr/upload/perso/77/rs_S2_BDD/sae/favicon.ico">
+  <title>BDD</title>
+</head>
+<body>
+<h1 id="thème-du-projet-site-de-e-commerce">Thème du projet : site de
+e-commerce</h1>
+<ul>
+<li>Site de e-commerce qui permet d’acheter des articles, mais aussi
+<ul>
+<li>rechercher des articles (filtre) <em>qui peuvent se
+décliner</em></li>
+<li><em>commenter/noter des articles</em></li>
+<li><em>définir une(des) adresse(s) pour l’expédition</em></li>
+<li><em>sélectionner des articles dans une liste d’envies et avoir un
+historique des derniers articles consultés</em></li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li><p><a href="http://amillet2.pythonanywhere.com/" target="_blank">Démonstration livrable 2</a> <span class="modif">(à
+rendre pendant les vacances de février)</span></p></li>
+<li><p><a href="http://amillet4.pythonanywhere.com/" target="_blank">Démonstration livrable 3</a> <span class="modif">(à
+rendre quelques semaines avant les vacances de pâques)</span></p></li>
+</ul>
+<p><br></p>
+<h1 id="groupe-de-projet">Groupe de projet</h1>
+<p>Formation des groupes de projet avec un référent : groupe de
+<strong>3/4</strong> personnes <strong>dans chaque groupe de
+TP</strong></p>
+<p><span class="modif">Créer un groupe et indiquer les membres dans ce
+<a href="https://docs.google.com/spreadsheets/d/1UF2oARL5o3oDco_wQHbB9PKtuw4CON2bSiCfiDKRwTU/edit?usp=sharing" target="_blank">document</a></span> (pour l’affectation des salles)</p>
+<p><br></p>
+<p><strong>Affectation d’un sujet par l’enseignant</strong> : de 1 de
+16</p>
+<p><br> Il est possible de proposer une idée mais l’article doit pouvoir
+se décliner (taille, couleur … différentes : l’article doit posséder <a href="https://www.etowline.fr/limportance-de-la-gestion-des-tailles-et-des-coloris-dans-le-e-commerce/" target="_blanck">une déclinaison</a> ou une <a href="https://woocommerce.com/document/produits-variables/" target="_blanck">variation</a>) sous réserve que ça ne ressemble pas
+trop à un sujet existant.</p>
+<h1 id="semaine-1-2-livrable-1">Semaine 1 / 2 : livrable 1</h1>
+<h2 id="prise-en-main-du-projet">prise en main du projet :</h2>
+<p>Base de données :</p>
+<ul>
+<li>Créer un <strong>script SQL « sae_sql.sql »</strong> : ce script
+contient une première version de la base de données du projet et un jeu
+de test en fonction de votre projet
+<ul>
+<li>Créer des enregistrements pour les articles (15 minimum)</li>
+<li>Rechercher des images (photos) pour ces différents articles (15
+photos différentes minimum, <strong>ne pas avoir la même photo pour
+plusieurs articles</strong>)</li>
+</ul></li>
+<li>Copier le <strong>système d’authentification</strong> vu en TD de
+BDD et afficher les articles de votre sujet (photos …)</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Votre projet doit être compatible avec une machine de l’IUT
+<!--Créer un compte *pythonanywhere* pour le projet de votre SAE--></li>
+</ul>
+<!--* copier votre code sur pythonanywhere et tester votre application - <https://help.pythonanywhere.com/pages/UploadingAndDownloadingFiles/>{target=_blank}-->
+<ul>
+<li>télécharger le fichier <a href="https://cours-info.iut-bm.univ-fcomte.fr/upload/perso/77/S2_BDD/sae204/livrable1_sae_2_4_bdd.ods">livrable1_sae_2_4_bdd.ods</a>
+déposer sur Moodle ce fichier <strong>livrable1_sae_2_4_bdd.ods</strong>
+avec les informations sur le groupe de SAE</li>
+</ul>
+<p><br></p>
+<div class="livrable">
+<p>livrable 1 :</p>
+<ul>
+<li><ol type="1">
+<li>Modifier le fichier <strong>livrable1_sae_2_4_bdd.ods</strong> avec
+et les informations sur le groupe de SAE et éventuellement l’URL de
+votre projet sur un hébergeur.</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Créer un fichier <strong>mcd_projet_v1.loo</strong> avec la première
+version du MCD du projet ; <span class="modif">Ce MCD est composé de
+toutes les entités et associations nécessaires au fonctionnement de la
+version minimum du site de e-commerce, le MLD issu de ce MCD est composé
+des tables de votre sujet (3 minimum) et des tables “utilisateur”,
+“commande”, “ligne_commande”, “ligne_panier” et “etat”.</span></li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Créer 2 fichiers PDF d’une page de nom <strong>MCD_v1.pdf</strong>
+et <strong>MLD_v1.pdf</strong></li>
+</ol>
+<ul>
+<li><strong>MCD_v1.pdf</strong> : il est composé du MCD, le MCD qui
+utilise complètement et harmonieusement la page, ajouter sur cette page
+vos noms, votre groupe de TP (exemple A2) et votre groupe de SAE</li>
+<li><strong>MLD_v1.pdf</strong> : il est composé du MLD, le MLD qui
+utilise complètement et harmonieusement la page, ajouter sur cette page
+vos noms, votre groupe de TP (exemple A2) et votre groupe de SAE</li>
+</ul></li>
+<li><span class="important"><strong>ATTENTION malus si il n’y a ni le
+groupe ni le nom des étudiants sur le MCD et le MLD, ou si le nom des
+fichiers PDF n’est pas correct</strong></span></li>
+</ul>
+exemple de modification :
+<table>
+<tbody><tr>
+<td>
+<figure>
+<img src="./consignes_files/sae_mcd_pdf.png" style="width:7cm" alt="">
+<figcaption>
+exemple de fichier PDF (format A4) avec un MCD qui sera imprimé
+</figcaption>
+</figure>
+</td>
+<td>
+<figure>
+<img src="./consignes_files/sae_mld_pdf.png" style="width:7cm" alt="">
+<figcaption>
+exemple de fichier PDF (format A4) avec un MLD qui sera imprimé
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+<p><br></p>
+<ul>
+<li><ol start="3" type="1">
+<li>Créer un fichier <strong>sae_sql.sql</strong> première version du
+jeu de test SQL pour votre projet avec toutes les tables du MLD.</li>
+</ol></li>
+</ul>
+<p><br></p>
+<ul>
+<li><ol start="4" type="1">
+<li>Créer des enregistrements pour toutes les tables. <span class="modif">La <strong>qualité du jeu de test</strong> est vraiment
+prise en compte, nombre de colonnes pour les articles, les types
+d’articles, le nombre d’articles. Le tout devant ressembler à quelque
+chose dans laquelle un client pourrait se projeter. (Minimum 15 articles
+et 4 types d’articles (15 photos différentes minimum, pas de photos
+identiques pour un article sinon malus, les photos doivent être
+réalistes et attractives))</span></li>
+</ol></li>
+</ul>
+<p><br></p>
+<p><strong>Application Flask</strong></p>
+<p><br> 5. Faire fonctionner votre application sur une machine de
+l’IUT.</p>
+<p><br> Votre application doit permettre :</p>
+<ul>
+<li><ol start="6" type="1">
+<li>de s’authentifier avec le code vu en TD (le mot de passe pour le
+login “client” est “client”, pour “client2” est “client2” et pour
+“admin” est “admin”)</li>
+</ol></li>
+<li><ol start="7" type="1">
+<li>l’application doit afficher le jeu de test :</li>
+</ol>
+<ul>
+<li><strong>les “articles”</strong> de votre projet (dans la base de
+données, vous ne devez pas utiliser le mot “article”)</li>
+<li><strong>les “types d’articles”</strong> qui seront utilisé par le
+filtre (le filtre n’est pas évalué dans ce livrable)</li>
+</ul></li>
+<li><ol start="8" type="1">
+<li><span class="modif">La route <code>/base/init</code> fonctionne
+(contrôleur <code>fixtures_load.py</code>). Cette fonction supprime puis
+crée toutes les tables et insert les enregistrements dans la base de
+données.</span></li>
+</ol></li>
+</ul>
+<p><br></p>
+<ul>
+<li><ol start="9" type="1">
+<li>Créer un compte github ou gitlab, synchroniser votre projet entre
+votre machine et le dépot (repository). Chaque étudiant devra faire une
+démonstration en TP.</li>
+</ol>
+<ul>
+<li>Faire un test avant la première séance de TP qui suit le
+livrable</li>
+<li><span class="modif">[Synchroniser <strong>votre machine</strong>
+avec <strong>GitLab</strong> ou <strong>GitHUB</strong>]</span> avec des
+commandes “shell” (démonstration en TP) ; Faire une démonstration :
+recupérer les modifications du projet ; faire des modifications ; mettre
+à jour l’application …..</li>
+</ul></li>
+<li><ol start="10" type="1">
+<li><span class="modif">utiliser <code>dotenv</code> (voir la fin du <a href="https://cours-info.iut-bm.univ-fcomte.fr/upload/perso/77/rs_S1_DIW/diw/config_pycharm_v24.html" target="_blank">document sur pycharm</a>)</span></li>
+</ol></li>
+<li><ol start="11" type="1">
+<li>Utiliser <a href="https://railway.com/" target="_blank">Railway</a>
+pour déployer votre application</li>
+</ol></li>
+</ul>
+<p><span class="modif">Pour les parties ci-dessus (9 et 10), chaque
+étudiant fera une démonstration en TP sur son compte.</span></p>
+</div>
+<h2 id="étape-1">étape 1 :</h2>
+<p><strong>Un sujet va vous être imposé avec des noms d’articles à
+respecter.</strong></p>
+<p>Mais vous pouvez proposer un type d’article et des exemples
+d’articles avec l’accord de l’enseignant.</p>
+<p><br></p>
+<p>Site de vente</p>
+<p>Structure de base : application sur laquelle l’utilisateur peut se
+créer un compte, se connecter et se déconnecter</p>
+<p>La base de données dispose de plusieurs tables :</p>
+<pre><code>utilisateur (id_utilisateur, login, email, nom, password, role) 
+commande (id_commande, date_achat, #utilisateur_id, #etat_id)
+ligne_commande ( #commande_id , #article_id , prix, quantite)
+ligne_panier (#utilisateur_id , #article_id, quantite, date_ajout)
+etat (id_etat, libelle )</code></pre>
+<ul>
+<li><strong>Par convention le code SQL est en <a href="https://fr.wikipedia.org/wiki/Snake_case" target="_blank">snake_case</a> (sinon pénalité et vous devrez changer
+vos scripts SQL pour les prochains livrables)</strong></li>
+<li><span class="modif"><strong>Toutes les clés étrangères sont nommées
+avec le format suivant : <code>table_id</code></strong> (table est le
+nom de la table dont la clé primaire permet de vérifier l’intégrité
+référentielle de la colonne)<strong>(sinon pénalité et vous devrez
+changer vos scripts SQL pour les prochains
+livrables)</strong></span></li>
+</ul>
+<p><br></p>
+<ul>
+<li>Remplacer le nom de la table <strong>article</strong> par celui de
+votre sujet.</li>
+<li><strong>Créer la table qui permettra de définir la déclinaison de
+l’article</strong></li>
+<li>Remplacer l’attribut <strong>article_id</strong> par celui de votre
+sujet dans le schéma ci-dessus.</li>
+<li>Créer une table type_article (en modifiant le nom par celui du
+sujet)</li>
+<li>Ajouter des attributs dans la table principale</li>
+<li>L’état de la commande peut être selon le sujet, “en attente”,
+“expédié”, “validé”, “confirmé”</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Le système doit disposer d’un système de panier stocké dans une base
+de données avant la confirmation de la commande (et non en
+“session”)</li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>Rechercher les clés primaires</strong> dans le schéma
+ci-dessus.</li>
+<li>Modifier le schéma avec les éléments de votre sujet en vous
+inspirant d’exemples sur internet</li>
+</ul>
+<p><br></p>
+<ul>
+<li><span class="modif"><strong>Même si l’objectif n’est pas de passer
+du temps sur les interfaces, vous pouvez modifier et améliorer les
+interfaces (un tout petit bonus sur la note peut être appliqué en
+fonction de la qualité des modifications)</strong></span></li>
+</ul>
+<h2 id="affectation-des-sujets">Affectation des sujets :</h2>
+<p>IMPORTANT : Derrière le numéro du sujet, respecter :</p>
+<ul>
+<li>le nom de la première table (qui remplace article)</li>
+<li>ainsi que <span class="violet">le nom de la déclinaison en
+violet</span> (à remplacer par le nom derrière <code>/</code>)</li>
+<li>et <span class="vert">le type d’article (<strong>catégorie</strong>)
+pour le filtre en vert</span></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 1 : meuble</strong>/<span class="violet">materiau</span></p>
+<p>meuble <strong>materiau(chene, pin -ou- modele unique)</strong> <span class="vert">type_meuble</span> fournisseur marque
+<strong>…..</strong><br>
+<a href="https://www.ikea.com/fr/fr/p/ekedalen-ekedalen-table-et-4-chaises-brun-fonce-orrsta-gris-clair-s69221278/" target="_blanck">exemple</a> - <a href="https://www.ikea.com/fr/fr/search/products/?q=chaise" target="_blanck">exemple2</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>meuble(id_meuble, nom_meuble, largeur, hauteur, prix_meuble,
+#materiau_id, #type_meuble_id, fournisseur, marque, photo, stock )</li>
+<li><span class="violet">materiau (id_materiau,
+libelle_materiau)</span></li>
+<li><span class="vert">type_meuble (id_type, libelle_type)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 2 : vetement</strong>/<span class="violet">taille</span></p>
+<p>vetement <strong>taille(taille unique -ou- XS,S,M,L,XL…)</strong>
+<span class="vert">type_vetement</span> couleur fournisseur marque
+<strong>…..</strong> <a href="https://www.leslipfrancais.fr/marius-plus-bleu-marine-boxer-court-en-coton-14675.html" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>vetement(id_vetement, nom_vetement, prix_vetement, #taille_id,
+#type_vetement_id, matiere, description, fournisseur, marque, photo,
+stock )</li>
+<li><span class="violet">taille (id_taille, libelle_taille)</span></li>
+<li><span class="vert">type_vetement (id_type_vetement,
+libelle_type_vetement)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 3: velo</strong>/<span class="violet">taille</span></p>
+<p>velo <strong>taille(taille unique -ou- XS,S,M,L,XL… )</strong>
+couleur fournisseur <span class="vert">type_velo</span>
+<strong>…..</strong> <a href="https://www.canyon.com/fr-fr/vtt/" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>velo(id_velo, nom_velo, prix_velo, taille_id, type_velo_id, matiere,
+description, fournisseur, marque, photo, stock )</li>
+<li><span class="violet">taille (id_taille, libelle_taille)</span></li>
+<li><span class="vert">type_velo (id_type_velo,
+libelle_type_velo)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 4: ski</strong>/<span class="violet">longueur</span></p>
+<p>ski <strong>longueur(longueur unique -ou- 150,160…)</strong> <span class="vert">type_ski</span> modèle fabricant fournisseur
+<strong>…..</strong> <a href="https://www.snowleader.com/hustle-10-2023-BLIZZ00157.html" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>ski(id_ski, nom_ski, largeur, prix_ski, longueur_id, type_ski_id,
+fournisseur, marque , conseil_utilisation, photo, stock )</li>
+<li><span class="violet">longueur (id_longueur,
+libelle_longueur)</span></li>
+<li><span class="vert">type_ski (id_type_ski,
+libelle_type_ski)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 5: chaussure</strong>/<span class="violet">couleur</span></p>
+<p>chaussure <strong>pointure(36,38…)</strong> ou produit nettoyant ;
+<span class="vert">type_chaussure</span> fournisseur marque couleur
+<strong>…..</strong> <a href="https://www.cirages-et-compagnie.fr/product/lait-nettoyant-pour-cuir" target="_blanck">exemple</a> ou <a href="https://www.galerieslafayette.com/c/homme/chaussures/chaussures-de-ville/mocassins" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>chaussure(id_chaussure, nom_chaussure, sexe, entretien,
+prix_chaussure, pointure_id, type_chaussure_id, fournisseur, marque,
+photo, stock )</li>
+<li><span class="violet">pointure (id_pointure,
+libelle_pointure)</span></li>
+<li><span class="vert">type_chaussure (id_type_chaussure,
+libelle_type_chaussure)</span> <br></li>
+</ul></li>
+</ul>
+<p><strong>sujet 6: telephone</strong>/<span class="violet">couleur</span></p>
+<p>telephone <strong>couleur(bleu noie…)</strong> modele <span class="vert">categorie</span> fournisseur marque <strong>…..</strong> <a href="https://www.ldlc.com/telephonie/telephonie-portable/mobile-smartphone/c4416/" target="_blanck">exemple</a> <a href="https://www.amazon.fr/Blackview-BV4900-T%C3%A9l%C3%A9phone-Incassable-Smartphone/dp/B08HYSQBVT/" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>telephone(id_telephone, nom_telephone, poids, taille,
+prix_telephone, couleur_id, type_telephone_id, fournisseur, marque,
+photo, stock )</li>
+<li><span class="violet">couleur (id_couleur,
+libelle_couleur)</span></li>
+<li><span class="vert">type_telephone (id_type_telephone,
+libelle_type_telephone)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 7: casque</strong>/<span class="violet">taille</span></p>
+<p>casque <strong>taille(XS,S,M,L,XL…)</strong> <span class="vert">type_casque</span> couleur taille fabricant fournisseur
+<strong>…..</strong></p>
+<p><a href="https://www.alltricks.fr/F-10007-casques/P-1426733-casque_abus_hyban_2_0_ace_velvet_jaune_avec_visiere_transparente" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>casque(id_casque, nom_casque, poids, couleur, prix_casque,
+taille_id, type_casque_id, fournisseur, marque, photo, stock )</li>
+<li><span class="violet">taille (id_taille, libelle_taille)</span></li>
+<li><span class="vert">type_casque (id_type_casque,
+libelle_type_casque)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 8: lunette</strong>/<span class="violet">couleur</span></p>
+<p>lunette <strong>couleur(bleu noir…)</strong> <a href="https://www.easylunettes.fr/p/guide-des-tailles/" target="_blanck">taille</a> indice_protection <span class="vert">categorie</span>(soleil protection vue enfant) fournisseur
+marque <strong>…..</strong> <a href="https://www.afflelou.com/lunettes-de-soleil/luxe/" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>lunette(id_lunette, nom_lunette, sexe, indice_protection,
+taille_monture, prix_lunette, couleur_id, categorie_id, fournisseur,
+marque, photo, stock )</li>
+<li><span class="violet">couleur (id_couleur,
+libelle_couleur)</span></li>
+<li><span class="vert">categorie (id_categorie,
+libelle_categorie)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 9: peinture</strong>/<span class="violet">couleur</span></p>
+<p>peinture <strong>couleur(bleu noir… vert)</strong> volume_pot(0.5L 1L
+…) <span class="vert">categorie</span>(intérieur bois extérieur métal)
+fournisseur marque <strong>…..</strong> <a href="https://www.4murs.com/articles/1147897-peinture-absolu-acrylique-coconut-mat-2-5-l" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>peinture(id_peinture, nom_peinture, volume_pot, numero_melange,
+prix_peinture, couleur_id, categorie_id, fournisseur, marque, photo,
+stock )</li>
+<li><span class="violet">couleur (id_couleur, nom_couleur)</span></li>
+<li><span class="vert">categorie (id_categorie,
+nom_categorie)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 10: gant</strong>/<span class="violet">taille</span></p>
+<p>gant <strong>taille(6,7,8,9,10…) ou <a href="https://www.1000gants.com/calculer-sa-taille/" target="_blanck">taille</a> unique</strong> <span class="vert">type_gant</span>(jardinage ski hiver mode) fournisseur
+marque <strong>…..</strong> <a href="https://www.jardideco.fr/protection-du-jardinier/18510-gants-de-protection-en-cuir-frenchie-jardinage.html#/39-taille-taille_10" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>gant(id_gant, nom_gant, poids, couleur, prix_gant, taille_id,
+type_gant_id, fournisseur, marque, photo, stock )</li>
+<li><span class="violet">taille (id_taille, num_taille_fr, taille_us,
+tour_de_main)</span></li>
+<li><span class="vert">type_gant (id_type_gant,
+nom_type_gant)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 11: câble</strong>/<span class="violet">longueur</span></p>
+<p><a href="https://www.ldlc.com/connectiques/connectique-reseau/cable-rj45/c4512/+fi256-l10h10.html" target="_blanck">cable</a> <strong>longueur(50cm , 1m , 1m50 ,…) ou
+taille unique</strong> <span class="vert">type_prise</span>(usb jack
+hdmi …) fournisseur marque <strong>…..</strong></p>
+<ul>
+<li>MLD
+<ul>
+<li>cable(id_cable, nom_cable, type_cable_id, longueur_id couleur,
+prix_cable, <a href="https://www.ldlc.com/connectiques/connectique-reseau/cable-rj45/c4512/+fi256-l10h10.html">blindage</a>,
+type_prise_id, fournisseur, marque, photo, stock )</li>
+<li><span class="violet">longueur (id_longueur,
+nom_longueur)</span></li>
+<li><span class="vert">type_prise (id_type_prise,
+nom_type_prise)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 12: clé usb(cle_usb)</strong>/<span class="violet">capacité</span></p>
+<p>cle_usb <strong>capacité (8GO , 16 G0 , …) ou capacité
+unique</strong> <span class="vert">type_port</span>( usb C, USB
+classique, mini …) fournisseur marque <strong>…..</strong></p>
+<ul>
+<li>MLD
+<ul>
+<li>cle_usb(id_cle_usb, nom_cle_usb, capacite_id, decription,
+vitesse_transfert, prix_cle_usb, couleur_id, type_cle_usb_id,
+fournisseur, marque, photo, stock )</li>
+<li><span class="violet">capacite (id_capacite,
+libelle_capacite)</span></li>
+<li><span class="vert">type_cle_usb (id_type_cle_usb,
+libelle_type_cle_usb)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 13: jean</strong>/<span class="violet">taille</span></p>
+<p>jean <strong>taille(W29 W31 W33… L32 (taille américaine))</strong>
+<span class="vert">coupe_jean</span> couleur fournisseur marque
+<strong>…..</strong> <a href="https://www.1083.fr/homme.html" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>jean(id_jean, nom_jean, prix_jean, #taille_id, #coupe_jean_id,
+matiere, couleur, description, fournisseur, marque, photo, stock )</li>
+<li><span class="violet">taille (id_taille, nom_taille)</span></li>
+<li><span class="vert">coupe_jean (id_coupe_jean, <a href="https://www.kingofwear.com/fr/p-guide-jeans.html">nom_coupe</a>)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 14: parfum</strong>/<span class="violet">volume</span></p>
+<p>parfum <strong>volume(50ml 100ml)</strong> <span class="vert">genre</span>(homme femme mixte ) fournisseur marque
+<strong>…..</strong> <a href="https://www.parfumdo.com/30258-patchouli-vaporisateur-eau-de-toilette.html" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>parfum(id_parfum, nom_parfum, prix_parfum, #conditionnement_id (ou
+#genre_id), #volume_id, #type_parfum_id, description, fournisseur,
+marque, photo, stock )</li>
+<li><span class="violet">volume (id_volume, nom_volume)</span></li>
+<li><span class="vert">genre (id_genre, nom_genre</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 15: linge</strong>/<span class="violet">coloris</span></p>
+<p>linge <strong>coloris( voir exemple)</strong>, taille, <span class="vert">type_linge</span>(serviette bain, drap … ) fournisseur
+marque <strong>…..</strong> <a href="https://www.linvosges.com/fr/la-salle-de-bain/tapis-de-bain/bain-a-etretat/" target="_blanck">exemple</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>linge(id_linge, nom_linge, prix_linge, dimension, #coloris_id,
+#type_linge_id, matiere, description, fournisseur, marque, photo, stock
+)</li>
+<li><span class="violet">coloris (id_coloris, nom_coloris)</span></li>
+<li><span class="vert">type_linge (id_type_linge,
+nom_type_linge</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 16: boisson (eau ou jus de fruit)</strong>/<span class="violet"><a href="https://www.evianchezvous.com/tous-les-produits.html">arome</a> ou
+conditionnement ou fruit</span></p>
+<p>boisson <strong>conditionnement( voir exemple le catalogue
+celtic)</strong>, arome (sans arome, orange, citron …) conteneur (verre,
+plastique(PET), <a href="https://www.ugap.fr/achat-public/eau-minerale-l-eau-neuve-tetra-50-cl-carton-de-12-bouteilles_3312362.html" target="_blanck">brique carton</a>, aluminium), <span class="vert">type_eau</span>(petillante, plate, aromatisé …) fournisseur
+marque <strong>…..</strong> <a href="https://www.eauceltic.com/" target="_blanck">exemple</a> - <a href="https://www.eauceltic.com/" target="_blanck">exemple2</a></p>
+<ul>
+<li>MLD
+<ul>
+<li>boisson(id_boisson, nom_boisson, prix_boisson, volume, #arome_id (ou
+conditionnement_id), #arome_id, #type_boisson_id, description,
+fournisseur, marque, photo, stock )</li>
+<li><span class="violet">arome (id_arome, nom_arome)</span> (ou
+conditionnement(id_conditionnement, nom_conditionnement, prix))</li>
+<li><span class="vert">type_boisson (id_type_boisson,
+nom_type_boisson)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>sujet 17: equipement de sport</strong>/ <span class="violet">taille</span></p>
+<p>equipement_sport <strong>couleur( <a href="https://www.totalsport.fr/sports-individuels.html" target="_blanck">voir exemple</a> , sélectionner les couleurs)</strong>,
+<span class="vert">type_sport</span> fournisseur marque
+<strong>…..</strong></p>
+<ul>
+<li>MLD
+<ul>
+<li>equipement_sport (id_equipement, nom_equipement, prix_equipement,
+#couleur_id, #type_sport_id, matiere, couleur, description, fournisseur,
+marque, photo, stock )</li>
+<li><span class="violet">couleur (id_couleur, nom_couleur)</span></li>
+<li><span class="vert">type_sport (id_type_sport,
+libelle_type_sport)</span></li>
+</ul></li>
+</ul>
+<p><br></p>
+<hr>
+<h2 id="autre-idée---autre-idée---autre-idée"><a href="https://www.norev.com/fr/12979-citroen-2cv-azam-1966-gris-rose-1-17.html" target="_blanck">autre idée</a> - <a href="https://www.ambientedirect.com/fr/smeg/grille-pain-2-tranches-tsf01-mat_pid_1325203.html" target="_blanck">autre idée</a> - <a href="https://www.amazon.fr/dp/B0B7HCR3K8/ref=twister_B0BZTV43K2?_encoding=UTF8&amp;th=1" target="_blanck">autre idée</a></h2>
+<p><br><br><br></p>
+<!--
+
+autres idées : objets qui se déclinent en tailles différentes
+
+<br>
+
+
+
+**sujet 20 : place de théâtre**/spectacle 
+
+spectacle **categorie_place**  nb_places_categorie   lieu_spectacle horaire  salle   **.....**
+(exemple mals)
+
+<br>
+
+
+**sujet 21 : compétition de triathlon**
+
+course  **type_course**   categorie  nbplaces lieu distance_epreuve  **.....**
+
+
+<br>
+autres : selles équitations ....
+[exemple](https://www.esprit-equitation.com/374-selle-cuir){target=_blanck}
+
+-->
+<h1 id="livrable-2-site-de-e-commerce-minimum-fonctionnel">livrable 2 :
+site de e-commerce minimum fonctionnel</h1>
+<ul>
+<li><a href="http://amillet2.pythonanywhere.com/" target="_blank">Démonstration livrable 2</a> <span class="modif">(à
+rendre pendant les vacances de février)</span></li>
+</ul>
+<p><br><br></p>
+<div class="livrable">
+<p>Livrable 2 : Ce livrable est composé
+<!--d'un fichier pdf (MCD+MLD), --> d’un fichier archive (.zip ou
+.tar.gz) qui contient le dossier de votre projet (ne pas oublier le
+fichier SQL (jeu de test) qui est dans le même dossier que le fichier
+<em>app.py</em>)</p>
+<!-- **partie analyse : MCD et MR  Version 2** -->
+<p>Cette partie est à rendre sur <a href="https://moodle.univ-fcomte.fr/course/view.php?id=20184#section-1" target="_blank">moodle</a></p>
+<!--
+
+* fichier **mcd_projet_v2.loo** MCD du projet 
+
+Ce MCD et le MLD doivent intégrer la partie suivante :
+
+* gestion du stock pour des articles ou services de catégories différentes (**déclinaison**)
+* gestion des commentaires et des notes
+* gestion des adresses d’expédition et de livraison
+* gestion d’une liste d’envies(wishlist) et historique des articles consultés
+
+
+
+* Créer  2  fichiers PDF d'une page de nom **MCD_v2.pdf** et **MLD_v2.pdf**
+    - **MCD_v2.pdf** : il est composé du MCD, le MCD qui  utilise complètement et harmonieusement la page, ajouter sur cette page vos noms, votre groupe de TP (exemple A2) et votre groupe de SAE
+    - **MLD_v2.pdf** : il est composé du MLD, le MLD qui  utilise complètement et harmonieusement la page, ajouter sur cette page vos noms, votre groupe de TP (exemple A2) et votre groupe de SAE
+    
+
+
+* [**ATTENTION malus si il n'y a ni le groupe ni le nom des étudiants sur le MCD et le MLD, ou si le nom du(des) fichier(s) PDF n'est pas correct**]{class=important}
+
+-->
+<p><br></p>
+<p><strong>partie python et sql</strong></p>
+<ol type="1">
+<li>Il devrait être possible de tester votre application sur <strong>une
+machine de l’IUT</strong></li>
+</ol>
+<ul>
+<li><p>structure minimum du site de e-commerce fonctionnelle</p></li>
+<li><p>frontOffice : formulaire de commandes (clients )</p>
+<ul>
+<li>affichage du panier et des articles (sur la même vue), prix total du
+panier …</li>
+<li><ol start="2" type="1">
+<li><strong>filtrer les articles par type</strong> du coté client
+(catégorie à l’aide de liens , ou d’une liste déroulante, de case à
+cocher …), utiliser une session pour stocker ce filtre coté
+serveur.</li>
+</ol></li>
+<li><ol start="3" type="1">
+<li>ajout dans un panier des articles (lien) : formulaire (vérifier que
+le panier est différent pour 2 clients)</li>
+</ol></li>
+<li><ol start="4" type="1">
+<li>supprimer des articles du panier : formulaire</li>
+</ol></li>
+<li><ol start="5" type="1">
+<li>l’ajout dans le panier d’un article qui est déjà dans le panier
+modifie la quantité de articles (stock)</li>
+</ol></li>
+<li><ol start="6" type="1">
+<li>la validation du panier génère une commande (interface pour
+confirmer/vider le panier/continuer les achats)</li>
+</ol></li>
+<li><ol start="7" type="1">
+<li>affichage du stock restant</li>
+</ol></li>
+<li><ol start="8" type="1">
+<li>affichage du prix total de la commande en cours (boutique)</li>
+</ol></li>
+<li><ol start="9" type="1">
+<li>affichage des commandes (nombre d’articles, nom du client, date,
+prix total …) (bouton “mon compte” / “mes commandes”)</li>
+</ol></li>
+<li><ol start="10" type="1">
+<li>le client peut afficher le détails d’une de ses commandes</li>
+</ol></li>
+<li><ol start="11" type="1">
+<li>le client peut voir dans son espace que la commande est prise en
+compte (réalisée)</li>
+</ol></li>
+</ul></li>
+<li><p>backOffice : gestion des commandes (vendeur)</p>
+<ul>
+<li><ol start="12" type="1">
+<li>le vendeur peut afficher toutes les commandes (nom du client, nombre
+d et les valider (le client peut visualiser que la commande a été
+traitée )</li>
+</ol></li>
+<li><ol start="13" type="1">
+<li>le vendeur peut afficher le détail d’une commande (articles, prix,
+quantité + nom du client et informations sur le client)</li>
+</ol></li>
+<li><ol start="14" type="1">
+<li>le vendeur peut changer l’état d’une commande (“en préparation”
+=&gt; “expédier”)</li>
+</ol></li>
+<li><ol start="15" type="1">
+<li>le vendeur peut visualiser le stock de chaque article</li>
+</ol></li>
+<li><strong>Gestion du stock</strong>, il n’est pas possible de
+commander un <em>article</em> qui n’est pas en stock (à verifier avec du
+SQL)</li>
+<li><ol start="16" type="1">
+<li><strong>le vendeur peut modifier le stock d’un article</strong></li>
+</ol></li>
+</ul></li>
+</ul>
+<p><br></p>
+<!-- * ajouter dans  ce livrable avec le(s) fichier(s) pdf, -->
+<ul>
+<li>le fichier SQL <strong>sae_sql.sql</strong> qui permet de faire
+fonctionner votre partie python (ne pas joindre plusieurs fichiers SQL
+dans votre projet)</li>
+</ul>
+</div>
+<h1 id="livrable-3-travail-personnel-dans-le-groupe">livrable 3 :
+travail personnel dans le groupe</h1>
+<ul>
+<li><a href="http://amillet4.pythonanywhere.com/" target="_blank">Démonstration livrable 3</a> <span class="modif">(à
+rendre quelques semaines avant les vacances de pâques, voir sur
+moodle)</span></li>
+</ul>
+<p>Un petit bonus est donné à ceux qui ont une à deux semaine d’avance
+dans leur rendu et leur présentation.</p>
+<p><br></p>
+<p>Lors des SAE vous définirez et vous m’informerez de la partie de
+chaque étudiant dans le groupe</p>
+<p><br></p>
+<p><strong>tâche par étudiant</strong> (1 tâche par étudiant)<br>
+</p>
+<p>modifier le modèle logique de données de façon à ce que votre
+application puisse réaliser une des tâches suivantes</p>
+<br>
+<hr>
+<p><br></p>
+<ul>
+<li><span class="modif">étudiant 1 : gestion du stock pour des articles
+ou services de déclinaison différente (propriété comme taille,
+couleur)</span>
+<ul>
+<li><strong>Le stock dépend au minimum d’une des propriétés d’un article
+(couleur et/ou taille). Si l’article existe en plusieurs propriétés
+différentes le stock total des déclinaisons est affiché dans la page
+principale</strong> (<a href="https://www.etowline.fr/limportance-de-la-gestion-des-tailles-et-des-coloris-dans-le-e-commerce/" target="_blanck">une déclinaison</a> ou <a href="https://woocommerce.com/document/produits-variables/" target="_blanck">variation</a>)</li>
+</ul></li>
+</ul>
+<p><span style="border-bottom: 3px solid grey;">Boutique du
+client</span> ( <strong>front-office</strong> : boutique du client, vue
+pour faire les commandes )</p>
+<ol type="1">
+<li>Affichage du nombre de déclinaison(s) des articles qui en possèdent
+plusieurs dans la boutique (<strong>front-office</strong> :vue pour
+faire les commandes) ; faire ce calcul dans une requête SQL pour
+extraire les données (sans boucle en python pour ajouter des données).
+Si il y a plusieurs prix pour une déclinaison, c’est le prix minimum qui
+est affiché dans la boutique.</li>
+<li>Affichage du stock restant avec une ou plusieurs déclinaisons de
+l’article (dans le <strong>front-office</strong> : boutique du
+client)</li>
+<li>Lors de l’ajout d’un article dans le panier, le client passe par une
+interface supplémentaire pour saisir la propriété (choisir la
+déclinaison) sauf si il n’y a qu’une seule déclinaison (propriété) pour
+un article. La quantité de chaque déclinaison est affichée dans cette
+interface.</li>
+<li>Le stock se décrémente lorsque l’on ajoute un/des articles dans le
+panier, la suppression d’articles du panier re-incrémente le stock avec
+une ou plusieurs déclinaisons de l’article.</li>
+<li>Affichage du prix total de la commande en cours (panier) en tenant
+compte des déclinaisons.</li>
+<li>Affichage de la(les) déclinaison(s) dans le panier (propriété :
+taille, couleur …) de l’article choisi si il y en a plusieurs
+possibles.</li>
+<li>Commande : affichage du prix total des commandes, du nombre
+d’articles.</li>
+<li>Lors de l’affichage du détail d’une commande : affichage du nom de
+l’article, du nombre d’articles, du prix unitaire et du prix total de
+cet (ces) article(s) mais surtout <strong>de la déclinaison si il y en a
+une</strong>.</li>
+</ol>
+<p><span style="border-bottom: 3px solid grey;">Interface
+Administrateur</span> ( <strong>bask-office</strong> )</p>
+<ol start="9" type="1">
+<li>(ADMIN) Pour l’administrateur : Interface pour consulter toutes les
+commandes, valider les commandes, consulter le détail des commandes avec
+la déclinaison des articles</li>
+<li>(ADMIN) Pour l’administrateur : Interface qui affiche <strong>un
+tableau avec les articles</strong> (nom, identifiant), le nombre de
+déclinaisons, le stock restant de chaque article ; <strong>mettre en
+valeur les articles à ré-approvisionner : un message s’affiche si une
+déclinaison est en rupture de stock (=0)</strong>. Ce tableau dispose de
+bouton de modifier, ajouter voir supprimer le stock des articles. Si un
+article a été commandé, il n’est plus possible de le supprimer.</li>
+<li>(ADMIN) Interface pour compléter le stock des articles en fonction
+de la déclinaison (taille, couleur …).</li>
+<li>(ADMIN) Interface pour ajouter/modifier/supprimer de nouvelle
+déclinaison.</li>
+<li>(ADMIN) Gestion de 2 déclinaisons . Chaque déclinaison possède 2
+propriétés différentes.</li>
+<li>(ADMIN) Gestion de la “taille unique” ou “couleur unique”, lors de
+la sélection de cette propriété, il n’est plus possible d’en
+sélectionner une autre. Cette propriété n’est pas proposée dans la liste
+déroulante si une autre déclinaison a déjà été sélectionnée.</li>
+<li>(ADMIN) Pour les plus à l’aise : Gestion de la
+suppression/modification de déclinaisons déjà commandés : Si on supprime
+ou on modifie un article une déclinaison déjà achetée on fait une copie
+et qui devient “non utilisable” de la déclinaison, et on crée une
+nouvelle déclinaison. (la facture du produit acheté doit rester
+identique).</li>
+</ol>
+<p><br></p>
+<p><span style="border-bottom: 3px solid grey;">Interface
+Administrateur, visualisation de données</span> (
+<strong>bask-office</strong> )</p>
+<ol start="16" type="1">
+<li>VISUALISATION de données sur les stocks pour l’administrateur
+<ul>
+<li>coût du stock par déclinaison(taille, couleur)</li>
+<li>nombre d’article en stock par déclinaison(taille, couleur) …. )</li>
+</ul></li>
+<li>Attention à la qualité du jeu de test pour cette partie.</li>
+</ol>
+<p><i><strong>Remarque : pour simplifier le problème, lorsque
+l’identifiant de la taille ou la couleur (ou autre déclinaison) est “1”,
+la taille ou la couleur est considérée comme ‘unique’</strong></i></p>
+<br>
+<hr>
+<p><br></p>
+<ul>
+<li><span class="modif">étudiant 2 : gestion des commentaires et des
+notes</span></li>
+</ul>
+<p><span style="border-bottom: 3px solid grey;">Boutique du
+client</span> ( <strong>front-office</strong> : boutique du client, vue
+pour faire les commandes )</p>
+<ol type="1">
+<li><p>Afficher le nombre de commentaires (<strong>avis</strong>) et la
+note moyenne (uniquement si ces données existent sinon ne rien afficher)
+pour chaque article ; faire ce calcul dans une requête SQL pour extraire
+les données (sans boucle en python pour ajouter des données).</p>
+<p><strong>Détails d’un Article pour le client</strong> (vue pour saisir
+les commentaires) :</p></li>
+<li><p>Seule un client qui a acheté un article peut donner un avis
+dessus (ajouter des commentaires) ou mettre une note.</p></li>
+<li><p>Les commentaires sont liés à l’utilisateur (afficher le pseudo de
+chaque utilisateur devant chaque commentaire ainsi que l’identifiant du
+commentaire (id)). L’utilisateur peut ajouter et supprimer uniquement
+ses commentaires mais l’édition pour les modifier n’est pas obligatoire
+; afficher le login ou pseudo de l’utilisateur avant le
+commentaire.</p></li>
+<li><p>L’utilisateur ne peut saisir que 3 commentaires (quota) par
+article (<strong>faire la vérification coté serveur</strong>, faire le
+calcul grâce à du SQL, un message flash ( très visible ) s’affiche
+lorsque ce quota est atteint)</p></li>
+<li><p>Afficher (dans la vue qui affiche le détail d’un article en
+cliquant dessus)</p>
+<ul>
+<li>le nombre de commentaire(s) de l’utilisateur</li>
+<li>le nombre de commentaire(s) total pour l’article</li>
+<li>le nombre de commentaire(s) total validé(s)</li>
+<li>le nombre de commentaire(s) de l’utilisateur validé(s) <strong>=&gt;
+faire ce calcul en SQL avec 1 requête dans le contrôleur pour toutes les
+valeurs ci-dessus</strong></li>
+</ul></li>
+<li><p>l’utilisateur ne peut saisir que une note par article ou la
+<strong>modifier</strong></p></li>
+<li><p>Afficher la note moyenne de l’article en tenant compte des autres
+notes (les notes des autres clients) ; faire le calcul grâce à du
+SQL.</p></li>
+<li><p>Afficher dans un ordre chronologique (temporel inverse) les
+commentaires des clients et insérer correctement les réponses de
+l’administrateur derrière un commentaire.</p></li>
+</ol>
+<p><br></p>
+<p><span style="border-bottom: 3px solid grey;">Interface
+Administrateur</span> ( <strong>bask-office</strong> )</p>
+<ol start="9" type="1">
+<li>(ADMIN) <strong>Liste des articles</strong> : l’administrateur peut
+voir si il y a de nouveaux commentaires sur un article dans la liste des
+articles et leurs nombres.</li>
+<li>(ADMIN) <strong>Liste des articles</strong> : afficher le nombre de
+commentaires total et le nombre de commentaires “validés”(lus) des
+clients.</li>
+<li>(ADMIN) <strong>Liste des commentaires</strong> : l’administrateur
+peut voir si il y a de nouveaux commentaires parmi tous les commentaires
+d’un article (l’administrateur peut distinguer les commentaires
+“validés” (lus sur fond jaune) et les commentaires “non”validés” (sur
+fond blanc) ; les réponses de l’administrateur (sur fond vert).</li>
+<li>(ADMIN) L’administrateur peut répondre à un commentaire.</li>
+<li>(ADMIN) <strong>liste des commentaires</strong> : l’administrateur
+peut supprimer certains avis (commentaires) (dans la liste des
+commentaires)</li>
+<li>(ADMIN) L’administrateur peut “valider” des commentaires (“valider”
+permet d’indiquer que les commentaires ont été lus par
+l’administrateur.</li>
+<li>(ADMIN) <strong>Affichage liste des commentaires</strong> : les
+commentaires sont correctement ordonnés :
+<ul>
+<li>afficher en premier les commentaires non “validés” (non lus) des
+clients dans un ordre chronologique temporel inverse (descendant) : sur
+fond blanc.</li>
+<li>puis les commentaires validés (lus) dans un ordre chronologique
+(temporel inverse) : sur fond jaune.</li>
+<li>La réponse de l’administrateur se trouve sous le commentaire du
+client : insérer correctement les réponses de l’administrateur derrière
+un commentaire : sur fond vert.</li>
+</ul></li>
+</ol>
+<p><span style="border-bottom: 3px solid grey;">Interface
+Administrateur, visualisation de données</span> (
+<strong>bask-office</strong> )</p>
+<p>Rappel : la catégorie ou le type d’article sont les valeurs dans le
+filtre</p>
+<ol start="16" type="1">
+<li>VISUALISATION de données sur les commentaires pour les catégories
+(ou type d’article) :
+<ul>
+<li>tableau avec le nombre de notes, la note moyenne et le nombre de
+commentaires dans chaque catégorie du filtre (ou type d’article du
+filtre)</li>
+<li>graphique avec la note moyenne/catégorie d’article du filtre (ou
+type d’article)</li>
+<li>graphique avec le nombre de commentaires(s) par catégorie du
+filtre(ou type d’article)</li>
+<li>graphique avec le nombre de note(s) par catégorie du filtre (ou type
+d’article)</li>
+</ul></li>
+<li>VISUALISATION de données : interface plus évoluée
+<ul>
+<li>si on clique sur une catégorie (ou type d’article) ou on sélectionne
+une catégorie dans une liste déroulante</li>
+<li>afficher dans la page
+<ul>
+<li>tableau avec le nombre de notes, la note moyenne et le nombre de
+commentaires <strong>uniquement</strong> pour chaque article de cette
+catégorie (ou type d’article)</li>
+<li>graphique avec la note moyenne/article <strong>uniquement</strong>
+pour chaque article de cette catégorie (ou type d’article)</li>
+<li>graphique avec le nombre de commentaires(s) par article
+<strong>uniquement</strong> pour chaque article de cette catégorie</li>
+<li>graphique avec le nombre de note(s) par article
+<strong>uniquement</strong> pour chaque article de cette catégorie</li>
+</ul></li>
+</ul></li>
+<li>Attention à la qualité du jeu de test pour cette partie.</li>
+</ol>
+<br>
+<hr>
+<p><br></p>
+<ul>
+<li><span class="modif">étudiant 3 : gestion des adresses d’expédition
+et de livraison</span>
+<ul>
+<li>Lors de la création d’une commande : le client doit sélectionner une
+adresse pour passer une commande (<strong>par défaut, c’est l’adresse
+favorite qui est proposée</strong>, sinon il faut soit créer une adresse
+soit sélectionner une adresse dans la liste des adresses valides)</li>
+</ul></li>
+</ul>
+<p><span style="border-bottom: 3px solid grey;">Boutique du
+client</span> ( <strong>front-office</strong> : boutique du client, vue
+pour faire les commandes )</p>
+<ol type="1">
+<li><p>Afficher dans “mes coordonnées” un tableau d’adresse.</p>
+<ul>
+<li>Dans ce tableau, <strong>afficher clairement l’adresse
+favorite</strong> (en bleu),</li>
+<li>Dans ce tableau, <strong>afficher clairement les adresses non
+valides</strong> seront en jaune (ce sont des adresses qui ont été
+modifiées ou supprimées mais qui étaient déjà utilisées dans une
+commande, de fait elles ne sont plus utilisables)</li>
+<li>Le <strong>nombre de commandes</strong> par adresse est indiqué dans
+le <strong>tableau</strong> des adresses.</li>
+</ul></li>
+<li><p>Afficher le nombre d’adresses de l’utilisateur
+<strong>“valides”</strong> (utilisables) et le nombre d’adresses
+<strong>total</strong> de l’utilisateur</p></li>
+<li><p>L’utilisateur peut utiliser et créer au maximum 4 adresses
+“fonctionnelles” (valides), il peut les modifier (la vérification est
+faite coté serveur (en SQL) et un message “flash” s’affiche lorsque le
+maximum de 4 adresses valides est atteint)</p></li>
+<li><p>Gestion de l’adresse favorite</p>
+<ul>
+<li>Si l’utilisateur crée une adresse, cette adresse devient adresse
+“favorite” sinon c’est la dernière utilisée qui est “favorite”.</li>
+<li>Sinon si le client passe une commande, c’est l’adresse de livraison
+utilisée qui devient favorite</li>
+<li>Sinon si on modifie l’adresse favorite, l’adresse modifiée devient
+l’adresse favorite</li>
+<li>Sinon si on supprime l’adresse favorite, c’est la dernière adresse
+utilisée valide qui devient favorite (“date de commande la plus récente
+et adresse valide”)</li>
+</ul></li>
+<li><p>le client peut consulter ses commandes avec les adresses de
+livraison et facturation.</p></li>
+<li><p>si l’adresse de facturation est la même que l’adresse de
+livraison, indiquer à l’utilisateur que ce sont les mêmes
+adresses</p></li>
+<li><p>Le client peut faire l’ajout/la modification/la suppression d’une
+adresse.</p></li>
+<li><p>Vérifier coté serveur (avec du SQL) que l’utilisateur connecté
+possède bien cette adresse lors de l’ajout/modification/suppression
+d’une adresse, indiquer par un message flash très visible orange le
+problème.</p></li>
+<li><p>Gestion avancée de la suppression/modification d’adresses :
+Conserver uniquement les adresses utilisées dans les commandes
+(factures) même si on modifie ou supprime l’une de ces adresses</p>
+<ul>
+<li>Une adresse non utilisé dans une commande doit être modifiée ou
+supprimée dans la base de données sans générer d’adresse non
+valide.</li>
+<li>Gestion d’une <strong>adresse supprimée</strong> utilisée dans une
+commande. Elle ne peut pas être supprimée de la base de données mais
+devient non “valide”. De fait cette adresse n’est plus utilisable et
+n’est plus comptée dans les adresses utilisables.</li>
+<li>Gestion de la <strong>modification</strong> d’une adresse. Une
+adresse utilisée pour une commande ne peut pas être modifiée, si on
+modifie cette adresse, elle devient non “valide”. De fait cette adresse
+n’est plus utilisable et n’est plus comptée dans les adresses
+utilisables. Cependant un doublon (une nouvelle adresse) est créée avec
+les nouvelles informations.</li>
+</ul></li>
+<li><p>Vérifier que le code postal est composé de 5 chiffres côté
+serveur, afficher un message flash qui signale l’erreur si le code
+postal n’est pas composé de 5 chiffre lors de la création d’une adresse
+; les données saisies sont ré-affichées dans le formulaire en cas
+d’erreur (faire la vérification coté serveur avec du python ou du
+SQL)</p></li>
+<li><p>Interface pour ajouter/modifier les informations de l’utilisateur
+(nom, login, email).</p>
+<ul>
+<li>Pas de doublon possible avec l’email et le login.</li>
+<li>Mettre à jour les valeurs de connexion (session).</li>
+</ul></li>
+</ol>
+<p><span style="border-bottom: 3px solid grey;">Interface
+Administrateur</span> ( <strong>bask-office</strong> )</p>
+<ol start="12" type="1">
+<li>(ADMIN) si l’administrateur consulte une commande, il peut voir
+l’adresse d’expédition et l’adresse de facturation</li>
+</ol>
+<p><br> <span style="border-bottom: 3px solid grey;">Interface
+Administrateur, visualisation de données</span> (
+<strong>bask-office</strong> )</p>
+<p>Attention à la qualité du jeu de test pour cette partie.</p>
+<ol start="13" type="1">
+<li>VISUALISATION de données avec les adresses (utiliser les 2 chiffres
+de gauches du code postal )
+<ul>
+<li>tableau avec le nombre de vente(s), le chiffre d’affaire par
+département</li>
+<li>graphique avec le nombre de vente par département</li>
+<li>graphique avec le chiffre d’affaire par département</li>
+</ul></li>
+<li>VISUALISATION de données : interface plus évoluée
+<ul>
+<li>affichage d’<a href="https://codepen.io/sebastiensz/pen/qBWqGxY?editors=1000" target="_blanck">une carte</a> avec le nombre de vente par département
+ou le CA par département ; la sélection du choix est faite par un lien :
+on clique sur “Chiffre d’affaire” ou “nombre de commandes”</li>
+</ul></li>
+<li>Attention à la qualité du jeu de test pour cette partie.</li>
+</ol>
+<br>
+<hr>
+<p><br></p>
+<ul>
+<li><span class="modif">étudiant 4 (uniquement pour les groupes de 4) :
+gestion d’une liste d’envies(wishlist) et historique des articles
+consultés</span></li>
+</ul>
+<p><span style="border-bottom: 3px solid grey;">Boutique du
+client</span> ( <strong>front-office</strong> : boutique du client, vue
+pour faire les commandes )</p>
+<p><strong>Difficulté 1 :</strong> La <strong>liste d’envie</strong> est
+composée par les articles sélectionnés par le “💛”</p>
+<ol type="1">
+<li><p>Ajout/suppression des articles dans la wishlist en cliquant sur
+“💛”</p></li>
+<li><p>Si l’article est commandé, il est retiré de cette liste
+(“wishlist”) dans la base de données.</p></li>
+<li><p>L’affichage des articles dans la <strong>liste d’envie</strong>
+est décroissant et dépend de l’ordre d’ajout (date et heure)</p></li>
+<li><p>Affichage du nombre d’article(s) dans la <strong>liste
+d’envie</strong> (“wishlist”) et du nombre d’article(s) dans
+l’<strong>historique</strong> d’un client. Utiliser du SQL pour faire ce
+calcul.</p></li>
+<li><p>Pouvoir avec l’interface fournie, monter/descendre les articles
+dans la “wishlist” dans cette liste</p>
+<ul>
+<li>monter/descendre d’un niveau</li>
+<li>monter/descendre au premier/dernier rang</li>
+</ul></li>
+<li><p>Uniquement si on clique sur l’article, afficher en vert au dessus
+de la liste le nombre de client(s) autre que vous qui ont ajouté cet
+article dans leur wishlist sinon afficher “Vous êtes le seul à avoir cet
+article dans votre wishlist” ; Utiliser du SQL pour faire ce
+calcul.</p></li>
+<li><p>Uniquement si on clique sur l’article, afficher en bleu au dessus
+de la liste le nombre d’article(s) autre(s) que celui là que vous avez
+déjà dans votre wishlist et qui sont de la même catégorie que cet
+article (ou type d’article) ; Utiliser du SQL pour faire ce
+calcul.</p></li>
+</ol>
+<p>rappel : la catégorie ou le type d’article sont les valeurs dans le
+filtre</p>
+<p><strong>Difficulté 2 :</strong> l’<strong>historique</strong> est
+défini par les articles consultés (on clique sur la photo de
+l’article)</p>
+<ol start="8" type="1">
+<li>affichage de l’<strong>historique</strong> dans l’ordre de
+consultation</li>
+<li>L’<strong>historique</strong> n’est composé que de <strong>6
+articles différents maximum</strong> (on ne stocke que 6 articles au
+maximum dans la table “historique” de la base de données), les 6
+derniers consultés. (faire ce calcul en SQL dans le contrôleur )</li>
+<li>Le nombre de consultations d’un article est stocké dans un
+numérique.</li>
+<li>Les articles des historiques sont retirés au bout de 1 mois.</li>
+<li>Pas de doublon dans l’historique</li>
+</ol>
+<p><span style="border-bottom: 3px solid grey;">Interface
+Administrateur, visualisation de données</span> (
+<strong>bask-office</strong> )</p>
+<ul>
+<li><span class="visu">VISUALISATION de données sur les listes d’envies
+pour l’administrateur (nombre d’articles /catégorie ) dans la liste
+d’envies, nombre de clics (consultation) d’un article ….)</span></li>
+</ul>
+<ol start="13" type="1">
+<li>VISUALISATION de données sur les wishlist pour les catégories (ou
+types d’article) :
+<ul>
+<li>tableau avec le nombre d’articles dans une wishlist dans chaque
+catégorie.</li>
+<li>graphique avec le nombre d’articles dans une wishlist /catégorie
+d’articles.</li>
+<li>graphique avec le nombre d’articles dans un historique sur le mois
+/catégorie d’articles.</li>
+</ul></li>
+<li>VISUALISATION de données : interface plus évoluée
+<ul>
+<li>si on clique sur une catégorie ou on sélectionne une catégorie dans
+une liste déroulante</li>
+<li>afficher dans la page
+<ul>
+<li>tableau des articles dans une wishlist d’une catégorie, le nombre
+d’articles dans un historique sur le mois <strong>uniquement pour chaque
+article de cette catégorie</strong></li>
+<li>graphique avec le nombre d’articles dans une wishlist
+<strong>uniquement pour chaque article de cette catégorie</strong></li>
+<li>graphique avec le nombre d’articles dans un historique sur le mois
+<strong>uniquement</strong> pour chaque article de cette catégorie</li>
+</ul></li>
+</ul></li>
+<li>Attention à la qualité du jeu de test pour cette partie.</li>
+</ol>
+<br>
+<hr>
+<p><br></p>
+<p>Chaque étudiant doit réaliser une(des) requêtes sur les données de sa
+partie, et réaliser un graphique (dataviz) qui serait <strong>un support
+de décision</strong><span class="modif">, la qualité du jeu de test
+livré est prise en compte.</span></p>
+<p><br></p>
+<div class="livrable">
+<p><strong>Livrable 3 (oral en TP):</strong></p>
+<ul>
+<li><p><strong>Réaliser le code python et SQL dans les contrôleurs,
+(éventuellement modifier les vues) …. pour que votre partie soit
+fonctionnelle.</strong></p></li>
+<li><p>Réaliser une vue avec un graphique sur des données de
+l’application qui serait <strong>un support de décision</strong> si
+possible en rapport avec votre partie (exemple étudiant 3 : nombre de
+clients par départements, régions ou Chiffre d’affaire par
+région/département)</p></li>
+<li><p>Présentation de chaque partie en TP et durant les heures de SAE
+(suivre <a href="https://cours-info.iut-bm.univ-fcomte.fr/upload/perso/77/rs_S2_BDD/sae/SAE_4_presentation_v25_v2.html" target="_blanck">les consignes</a> pour la
+présentation).</p></li>
+</ul>
+<hr>
+<ul>
+<li>Il n’est pas nécessaire que toutes les parties fonctionnent ensemble
+; <strong>validation : oral de 5/10mn en TP devant une machine de
+l’IUT</strong></li>
+</ul>
+<hr>
+<ul>
+<li>Déposer votre code source sur moodle</li>
+</ul>
+<p><br></p>
+<p><strong>Rappel :</strong></p>
+<p>Une pénalité importante sera appliquée si les règles suivantes ne
+sont pas respectées :</p>
+<ul>
+<li>pas d’utilisation de la fonction <code>url_for</code> pour gérer une
+route.</li>
+<li>pas d’utilisation de route paramétrée <code>/route/&lt;id&gt;</code>
+au lieu des routes avec paramètres GET <code>/route?id=</code>
+(paramètres de requête)</li>
+<li>pas de calcul en python (somme moyenne …) au lieu d’une utilisation
+de SQL pour faire des calculs.</li>
+<li>pas d’utilisation des mots clés “WITH” ou “TRY” en python (gestion
+des exceptions).</li>
+<li>pas de boucle python dans le fichier <em>app.py</em> (exemple avec
+le mot clé <code>next</code>)</li>
+<li>pas d’utilisation de javascript</li>
+<li>pas d’utilisation de module python non vu en tp</li>
+<li><strong>pas d’utilisation de code que vous ne maîtrisez pas</strong>
+<!--
+MCD MLD : analyse et réflexion sur une extension du schéma
+
+
+* Modifier le MCD coté articles : fournisseurs .... :  **rapport avec une première version du MCD et du MR(MLD)** ; 
+
+* Différents fournisseurs pour l’approvisionnement, 
+* partie expédition et facturation, livraison en plusieurs colis, choix du livreur selon la région ou du point relais 
+* partie service après vente (retour sav avec identifiant (numéro de série de l'article)), 
+* partie gestion du stock en tenant compte qu'un article peut se décliner en fonction d'une propriété (couleur, taille ....), 
+* partie gestion du personnel qui traite les différentes tâches,
+* les fournisseurs (livraison d'articles dans les entrepots)
+* partie promotions sur des articles, newsletter client  ….\n
+
+
+
+Votre MR doit au maximum être composé de 20/30 tables \n
+--></li>
+</ul>
+</div>
+<p><br></p>
+<p><span class="modifimp">Pour le dernier livrable, la date de rendu est
+prise en compte. Une petite partie de la note prend en compte que le
+travail est été fait quelques jours avant la <strong>deadline</strong>
+(date limite) et si la présentation a été effectué avant ou après la
+<strong>deadline</strong> (date limite)</span></p>
+<div class="livrable">
+<ul>
+<li>Autre évaluation : note anglais</li>
+</ul>
+<p>oral anglais (voir avec Mme Couturier)</p>
+</div>
+<h1 id="idée-sur-des-coefficients-des-évaluations-et-livrables-approximatif-en-2024">idée
+sur des coefficients des évaluations et livrables (approximatif) en
+2024</h1>
+<ul>
+<li>Note de Mme Couturier : coef 1</li>
+<li>Note de M Millet : coef 8
+<ul>
+<li>livrable 1 : 2/3</li>
+<li>livrable 2 : 4/3</li>
+<li>contrôle MLD/MCD : 2</li>
+<li>livrable 3 : 4</li>
+</ul></li>
+</ul>
+<h1 id="annexes">annexes</h1>
+<p><br></p>
+<ul>
+<li><p><a href="https://www.developpez.net/forums/d2106513/general-developpement/alm/modelisation/schema/avis-mcd-site-e-commerce-vetements/" target="_blank">https://www.developpez.net/forums/d2106513/general-developpement/alm/modelisation/schema/avis-mcd-site-e-commerce-vetements/</a>
+<br></p></li>
+<li><p><a href="https://www.developpez.net/forums/d2080188/general-developpement/alm/modelisation/schema/mcd-gestion-d-magasin-vente-details/" target="_blank">https://www.developpez.net/forums/d2080188/general-developpement/alm/modelisation/schema/mcd-gestion-d-magasin-vente-details/</a>
+<br></p></li>
+<li><p><a href="https://www.developpez.net/forums/d2114045/general-developpement/alm/modelisation/schema/avis-mcd-site-e-commerce/" target="_blank">https://www.developpez.net/forums/d2114045/general-developpement/alm/modelisation/schema/avis-mcd-site-e-commerce/</a>
+<br></p></li>
+<li><p><a href="https://www.developpez.net/forums/d2094949/general-developpement/alm/modelisation/schema/avis-suggestions-mcd-e-commerce/" target="_blank">https://www.developpez.net/forums/d2094949/general-developpement/alm/modelisation/schema/avis-suggestions-mcd-e-commerce/</a>
+<br></p></li>
+<li><p><a href="https://www.developpez.net/forums/d2058390/general-developpement/alm/modelisation/schema/mcd-site-e-commerce/" target="_blank">https://www.developpez.net/forums/d2058390/general-developpement/alm/modelisation/schema/mcd-site-e-commerce/</a>
+<br></p></li>
+</ul>
+<!--
+
+**MCD numéro 2 : ajouter des éléments(entités/relations) pour intégrer des fonctionnalités**
+Intégrer des fonctionnalités, exemples :
+Réaliser le MCD d'un site de e-commerce, utiliser la structure de base vue en cours.\n
+Refaire le MCD du site de e-commerce en sachant que chaque article peut se décliner (déclinaison) en articles de tailles et/ou couleurs et/ou avec des options différentes ...
+* ajouter dans  ce livrable avec le fichier pdf, le fichier SQL, 
+* ajouter un archive avec votre projet python 
+
+-->
+<!--
+
+    les petits plus 
+
+    afficher une carte avec les clients  https://leafletjs.com/examples/quick-start/
+
+affichages des adresses des clients
+
+
+    utiliser l'api du gouvernement pour convertir l'adresse en coordonnées gps  https://adresse.data.gouv.fr/api-doc/adresse
+curl "https://api-adresse.data.gouv.fr/search/?q=19+marechal+juin&postcode=90000"
+
+    sauvegarder les coordonnées gps uniquement si l'utilisateur confirme les coordonnées
+
+@app.route('/some-url')
+def get_data():
+    return requests.get('http://example.com').content
+
+  r = requests.get("http://example.com/other-endpoint")
+    return Response(
+        r.text,
+        status=r.status_code,
+        content_type=r.headers['content-type'],
+    )
+
+
+
+https://www.freecodecamp.org/news/how-to-setup-user-authentication-in-flask/
+
+    -->
+
+
+</body></html>

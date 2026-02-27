@@ -199,9 +199,10 @@ def valid_edit_linge():
 
 
 
-@admin_linge.route('/admin/linge/avis/<int:id>', methods=['GET'])
-def admin_avis(id):
+@admin_linge.route('/admin/linge/avis', methods=['GET'])
+def admin_avis():
     mycursor = get_db().cursor()
+    id = request.args.get('id', None)
     linge=[]
     commentaires = {}
     return render_template('admin/linge/show_avis.html'
@@ -235,4 +236,4 @@ def admin_avis_delete():
     linge_id = request.form.get('idlinge', None)
     userId = request.form.get('idUser', None)
 
-    return admin_avis(linge_id)
+    return redirect('/admin/linge/avis?id=' + str(linge_id))

@@ -7,6 +7,33 @@ from connexion_db import get_db
 client_linge = Blueprint('client_linge', __name__,
                         template_folder='templates')
 
+@client_linge.route('/client/panier/filtre', methods=['POST'])
+def client_linge_filtre():
+    # Stockage des filtres en session
+    session['filter_word'] = request.form.get('filter_word', '')
+    session['filter_prix_min'] = request.form.get('filter_prix_min', '')
+    session['filter_prix_max'] = request.form.get('filter_prix_max', '')
+
+    # Gestion des types (checkbox multiples)
+    filter_types = request.form.getlist('filter_types')
+    if filter_types:
+        session['filter_types'] = filter_types
+    else:
+        session.pop('filter_types', None)
+
+    return redirect('/client/linge/show')
+
+
+@client_linge.route('/client/panier/filtre/suppr', methods=['POST'])
+def client_linge_filtre_suppr():
+    # Suppression des filtres en session avec session.pop()
+    session.pop('filter_word', None)
+    session.pop('filter_prix_min', None)
+    session.pop('filter_prix_max', None)
+    session.pop('filter_types', None)
+    return redirect('/client/linge/show')
+
+
 @client_linge.route('/client/index')
 @client_linge.route('/client/linge/show')
 def client_linge_show():
@@ -37,21 +64,19 @@ def client_linge_show():
 
     # Filtre par prix min
     if filter_prix_min:
-        try:
+        prix_min_clean = filter_prix_min.replace('.', '', 1)
+        if prix_min_clean.isdigit():
             prix_min = float(filter_prix_min)
             where_conditions.append('prix_linge >= %s')
             params.append(prix_min)
-        except ValueError:
-            pass
 
     # Filtre par prix max
     if filter_prix_max:
-        try:
+        prix_max_clean = filter_prix_max.replace('.', '', 1)
+        if prix_max_clean.isdigit():
             prix_max = float(filter_prix_max)
             where_conditions.append('prix_linge <= %s')
             params.append(prix_max)
-        except ValueError:
-            pass
 
     # Construction de la requête finale
     sql_base = '''
@@ -86,13 +111,14 @@ def client_linge_show():
     types_linge = mycursor.fetchall()
 
     # 3. Récupération du panier du client connecté
+    # Le stock disponible est calculé comme : stock_total - quantite_deja_dans_panier
     sql_panier = '''
         SELECT
             lp.linge_id as id_linge,
             l.nom_linge as nom,
             lp.quantite,
             l.prix_linge as prix,
-            l.stock
+            (l.stock - lp.quantite) as stock
         FROM ligne_panier lp
         JOIN linge l ON lp.linge_id = l.id_linge
         WHERE lp.utilisateur_id = %s

@@ -74,19 +74,40 @@ def admin_commande_valider():
     commande_id = request.form.get('id_commande', None)
 
     if commande_id:
-        # Changer l'état de la commande (1: En attente -> 2: Expédié)
-        # ou passer à l'état suivant selon votre logique métier
-        sql = '''
-            UPDATE commande
-            SET etat_id = CASE
-                WHEN etat_id = 1 THEN 2 
-                WHEN etat_id = 2 THEN 3  
-                ELSE etat_id
-            END
+        # 1. Récupérer l'état actuel de la commande
+        sql_get_etat = '''
+            SELECT etat_id
+            FROM commande
             WHERE id_commande = %s
         '''
-        mycursor.execute(sql, (commande_id,))
-        get_db().commit()
-        flash('État de la commande mis à jour', 'alert-success')
+        mycursor.execute(sql_get_etat, (commande_id,))
+        result = mycursor.fetchone()
+
+        if result:
+            etat_actuel = result['etat_id']
+
+            # 2. Changer l'état en fonction de l'état actuel
+            if etat_actuel == 1:
+                # En attente -> Expédié
+                sql_update = '''
+                    UPDATE commande
+                    SET etat_id = 2
+                    WHERE id_commande = %s
+                '''
+                mycursor.execute(sql_update, (commande_id,))
+                flash('Commande passée en état "Expédié"', 'alert-success')
+            elif etat_actuel == 2:
+                # Expédié -> Livré
+                sql_update = '''
+                    UPDATE commande
+                    SET etat_id = 3
+                    WHERE id_commande = %s
+                '''
+                mycursor.execute(sql_update, (commande_id,))
+                flash('Commande passée en état "Livré"', 'alert-success')
+            else:
+                flash('La commande est déjà livrée', 'alert-info')
+
+            get_db().commit()
 
     return redirect('/admin/commande/show')

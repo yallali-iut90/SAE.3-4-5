@@ -65,7 +65,8 @@ def valid_add_linge():
         print("erreur")
         filename=None
 
-    sql = '''  requête admin_linge_2 '''
+    sql = ''' INSERT INTO linge(nom, filename, prix, type_linge_id, description)
+                VALUES(%s, %s, %s, %s, %s); '''
 
     tuple_add = (nom, filename, prix, type_linge_id, description)
     print(tuple_add)

@@ -22,7 +22,7 @@
 
                 <label for="type_linge_id">Type de l'linge :
                     <select name="type_linge_id" required class="form-select">
-                        <option value="">Sélectionner un type d'linge</option>
+                        <option value="">Sélectionner un type de linge</option>
                         {% for type in types_linge %}
                              <option value="{{ type.id_type_linge }}"> {{ type.libelle }}</option>
                         {% endfor %}

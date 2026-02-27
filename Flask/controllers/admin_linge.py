@@ -41,10 +41,17 @@ def show_linge():
 def add_linge():
     mycursor = get_db().cursor()
 
-    return render_template('admin/linge/add_linge.html'
-                           #,types_linge=type_linge,
-                           #,couleurs=colors
-                           #,tailles=tailles
+    # Récupérer tous les types de linge
+    sql = '''
+        SELECT id_type_linge, nom_type_linge as libelle
+        FROM type_linge
+        ORDER BY nom_type_linge ASC
+    '''
+    mycursor.execute(sql)
+    types_linge = mycursor.fetchall()
+
+    return render_template('admin/linge/add_linge.html',
+                           types_linge=types_linge
                             )
 
 
@@ -65,7 +72,7 @@ def valid_add_linge():
         print("erreur")
         filename=None
 
-    sql = ''' INSERT INTO linge(nom, filename, prix, type_linge_id, description)
+    sql = ''' INSERT INTO linge(nom_linge, image, prix_linge, type_linge_id, description)
                 VALUES(%s, %s, %s, %s, %s); '''
 
     tuple_add = (nom, filename, prix, type_linge_id, description)
@@ -83,29 +90,40 @@ def valid_add_linge():
 
 @admin_linge.route('/admin/linge/delete', methods=['GET'])
 def delete_linge():
-    id_linge=request.args.get('id_linge')
+    id_linge = request.args.get('id_linge')
     mycursor = get_db().cursor()
-    sql = ''' requête admin_linge_3 '''
-    mycursor.execute(sql, id_linge)
-    nb_declinaison = mycursor.fetchone()
-    if nb_declinaison['nb_declinaison'] > 0:
-        message= u'il y a des declinaisons dans cet linge : vous ne pouvez pas le supprimer'
+
+    # Vérifier si le linge existe et récupérer son image
+    sql = ''' SELECT image FROM linge WHERE id_linge = %s '''
+    mycursor.execute(sql, (id_linge,))
+    linge = mycursor.fetchone()
+
+    if not linge:
+        flash(u'Linge non trouvé', 'alert-warning')
+        return redirect('/admin/linge/show')
+
+    image = linge['image']
+
+    # Vérifier si le linge est utilisé dans des commandes (ligne_commande)
+    sql = ''' SELECT COUNT(*) as nb_commandes FROM ligne_commande WHERE linge_id = %s '''
+    mycursor.execute(sql, (id_linge,))
+    result = mycursor.fetchone()
+
+    if result['nb_commandes'] > 0:
+        message = u'Ce linge est utilisé dans des commandes : vous ne pouvez pas le supprimer'
         flash(message, 'alert-warning')
     else:
-        sql = ''' requête admin_linge_4 '''
-        mycursor.execute(sql, id_linge)
-        linge = mycursor.fetchone()
-        print(linge)
-        image = linge['image']
-
-        sql = ''' requête admin_linge_5  '''
-        mycursor.execute(sql, id_linge)
+        # Supprimer le linge
+        sql = ''' DELETE FROM linge WHERE id_linge = %s '''
+        mycursor.execute(sql, (id_linge,))
         get_db().commit()
-        if image != None:
+
+        # Supprimer l'image si elle existe
+        if image is not None and os.path.exists('static/images/' + image):
             os.remove('static/images/' + image)
 
         print("un linge supprimé, id :", id_linge)
-        message = u'un linge supprimé, id : ' + id_linge
+        message = u'un linge supprimé, id : ' + str(id_linge)
         flash(message, 'alert-success')
 
     return redirect('/admin/linge/show')

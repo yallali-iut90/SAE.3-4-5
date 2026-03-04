@@ -29,8 +29,8 @@
                                     {{ linge.prix }}€
                                 </h3>
                                      {%  if linge.image is not none %}
-                                        <img class="card-img-top rounded mx-auto d-block"  style="width:100px;height:100px"  src="{{ url_for('static', filename = 'images/')}}{{ linge.image }}"  alt="image  de {{ linge.nom }}" >
-                                    {% else %} <img class="card-img-top rounded mx-auto d-block"   style="width:100px;height:100px"   src="{{ url_for('static', filename='images/no_photo.jpeg')}}"  alt="image  de {{ linge.nom }}" >
+                                        <img class="card-img-top rounded mx-auto d-block"  style="width:100px;height:100px"  src="/static/images/{{ linge.image }}"  alt="image  de {{ linge.nom }}" >
+                                    {% else %} <img class="card-img-top rounded mx-auto d-block"   style="width:100px;height:100px"   src="/static/images/{{ linge.image }}"  alt="image  de {{ linge.nom }}" >
                                     {% endif %}
                                     <hr>
                                 </a>
